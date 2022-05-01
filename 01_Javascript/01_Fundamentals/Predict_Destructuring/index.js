@@ -26,7 +26,8 @@ const { name: otherName } = employee;
 */
 console.log(name);
 console.log(otherName);
-//  Predictions: Wrong, name undefined
+// Predictions: Wrong, name undefined
+// whoops, simple reading oversight
 
 
 // Problem 3
