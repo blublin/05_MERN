@@ -5,15 +5,9 @@ class Ninja {
         this.speed = speed;
         this.strength = strength;
     }
-    sayName() {
-        console.log(`This ninjas name is: ${ this.name }`)
-    }
-    showStats() {
-        console.log(`Ninjas name: ${ this.name }.\nNinjas strength: ${ this.strength }.\nNinjas speed: ${ this.speed }.\nNinjas health: ${ this.health}.`)
-    }
-    drinkSake() {
-        this.health += 10;
-    }
+    sayName = () => console.log(`This ninjas name is: ${ this.name }`);
+    showStats = () => console.log(`Ninjas name: ${ this.name }.\nNinjas strength: ${ this.strength }.\nNinjas speed: ${ this.speed }.\nNinjas health: ${ this.health}.`);
+    drinkSake = () => this.health += 10;
 }
 
 class Sensei extends Ninja {
@@ -28,7 +22,7 @@ class Sensei extends Ninja {
             "There are no accidents."
         ]
     }
-    speakWisdom() {
+    speakWisdom = () => {
         super.drinkSake();
         const random = Math.floor(Math.random() * this.quotes.length);
         console.log(this.quotes[random]);
