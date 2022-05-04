@@ -27,8 +27,8 @@ const pokemon = Object.freeze([
 // an array of pokémon objects where the id is evenly divisible by 3
 const arr1 = pokemon.filter( (p) => !(p.id % 3) )
 
-
 // an array of pokémon objects that are "fire" type
+const arr2  = pokemon.filter( (p) => p.types.includes("fire"))
 
 // an array of pokémon objects that have more than one type
 const arr3 = pokemon.filter( (p) => p.types.length > 1)
@@ -40,7 +40,10 @@ const arr4 = pokemon.map( (p) => p.name )
 const arr5 = pokemon.filter( (p) => p.id > 99).map( (p) => p.name)
 
 // an array with just the names of the pokémon whose only type is poison
+const arr6 = pokemon.filter( (p) => p.types.length > 1 && p.types.includes("poison") ).map( (p) => p.name )
 
 // an array containing just the first type of all the pokémon whose second type is "flying"
+const arr7 = pokemon.filter( (p) => p.types[1] === "flying").map( (p) => p.types[0])
 
 // a count of the number of pokémon that are "normal" type
+const normmalPokemonCount = pokemon.filter( (p) => p.types.includes("normal") ).length
