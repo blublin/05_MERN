@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-    
+import styles from './css/Master.module.css'
     
 class Advertisement extends Component {
     render() {
-        return <div>This is our first class component.</div>;
+        return (
+            <div className={ styles.advertisement }></div>
+        );
     }
 }
     

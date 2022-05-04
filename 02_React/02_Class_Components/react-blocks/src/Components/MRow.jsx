@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import styles from './css/Master.module.css'
-
-class Main extends Component {
+    
+class MRow extends Component {
     render() {
         return (
-            <div className={ styles.main }>
+            <div className={ styles.row}>
                 { this.props.children }
             </div>
         );
     }
 }
     
-export default Main;
+export default MRow;
