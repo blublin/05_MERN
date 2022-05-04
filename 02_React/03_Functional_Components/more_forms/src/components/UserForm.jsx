@@ -1,23 +1,28 @@
-import React from  'react';
+import React, {useState} from  'react';
 import styles from './css/UserForm.module.css';
 
 
 const UserForm = (props) => {
     const {
     firstName,
-    fNameError,
     lastName,
-    lNameError,
     email,
-    emailError,
     password,
     passwordConfirm,
-    passwordLengthError,
-    passwordMatchError
-    } = this.props.user;
+} = props.user;
 
-    const user = this.props.user;
-    const setUser = this.props.setUser;
+
+const [error, setError] = useState({
+    fNameError: "",
+    lNameError: "",
+    emailError: "",
+    passwordLengthError: "",
+    passwordMatchError: ""
+})
+
+
+    const user = props.user;
+    const setUser = props.setUser;
 
     const createUser = (e) => {
         e.preventDefault();
@@ -31,10 +36,16 @@ const UserForm = (props) => {
             firstName: e.target.value
         });
         if (firstName && firstName.length < 2) {
-            setUser({
-                ...user,
+            setError({
+                ...error,
                 fNameError: "First name must be at least 2 characters long."
-            })
+            });
+        }
+        else {
+            setError({
+                ...error,
+                fNameError: ""
+            });
         }
     }
     const lNameHandler = (e) => {
@@ -43,10 +54,16 @@ const UserForm = (props) => {
             lastName: e.target.value
         });
         if (lastName && lastName.length < 2) {
-            setUser({
-                ...user,
+            setError({
+                ...error,
                 lNameError: "Last name must be at least 2 characters long."
-            })
+            });
+        }
+        else {
+            setError({
+                ...error,
+                lNameError: ""
+            });
         }
     }
     const emailHandler = (e) => {
@@ -55,10 +72,16 @@ const UserForm = (props) => {
             email: e.target.value
         });
         if (email && email.length < 5) {
-            setUser({
-                ...user,
+            setError({
+                ...error,
                 emailError: "Email must be at least 5 characters long."
-            })
+            });
+        }
+        else {
+            setError({
+                ...error,
+                emailError: ""
+            });
         }
     }
     const passwordHandler = (e) => {
@@ -68,16 +91,29 @@ const UserForm = (props) => {
         });
         if (password && passwordConfirm) {
             if (password !== passwordConfirm) {
-                setUser({
-                    ...user,
+                setError({
+                    ...error,
                     passwordMatchError: "Passwords must match"
-                })
+                });
             }
+            else {
+                setError({
+                    ...error,
+                    passwordMatchError: ""
+                });
+            }
+
             if( password.length < 8) {
-                setUser({
-                    ...user,
+                setError({
+                    ...error,
                     passwordLengthError: "Password must be at least 8 characters long."
-                })
+                });
+            }
+            else {
+                setError({
+                    ...error,
+                    passwordLengthError: ""
+                });
             }
         }
     }
@@ -90,9 +126,9 @@ const UserForm = (props) => {
                     <input type="text" onChange={ fNameHandler }
                     value={firstName} />
                     {
-                        fNameError ?
-                        <p style={{color:"red"}}>{fNameError}</p> :
-                        {fNameError}
+                        error.fNameError ?
+                        <p style={{color:"red"}}>{error.fNameError}</p> :
+                        null
                     }
                 </div>
                 <div>
@@ -100,9 +136,9 @@ const UserForm = (props) => {
                     <input type="text" onChange={ lNameHandler }
                     value={lastName} />
                     {
-                        lNameError ?
-                        <p style={{color:"red"}}>{lNameError}</p> :
-                        {lNameError}
+                        error.lNameError ?
+                        <p style={{color:"red"}}>{error.lNameError}</p> :
+                        null
                     }
                 </div>
                 <div>
@@ -110,9 +146,9 @@ const UserForm = (props) => {
                     <input type="email" onChange={ emailHandler }
                     value={email} />
                     {
-                        emailError ?
-                        <p style={{color:"red"}}>{emailError}</p> :
-                        {emailError}
+                        error.emailError ?
+                        <p style={{color:"red"}}>{error.emailError}</p> :
+                        null
                     }
                 </div>
                 <div>
@@ -120,14 +156,14 @@ const UserForm = (props) => {
                     <input type="password"  onChange={ (e) => setUser({...user,"password":e.target.value}) }
                     value={password} />
                     {
-                        passwordLengthError ?
-                        <p style={{color:"red"}}>{passwordLengthError}</p> :
-                        {passwordLengthError}
+                        error.passwordLengthError ?
+                        <p style={{color:"red"}}>{error.passwordLengthError}</p> :
+                        null
                     }
                     {
-                        passwordMatchError ?
-                        <p style={{color:"red"}}>{passwordMatchError}</p> :
-                        {passwordMatchError}
+                        error.passwordMatchError ?
+                        <p style={{color:"red"}}>{error.passwordMatchError}</p> :
+                        null
                     }
                 </div>
                 <div>
@@ -135,14 +171,14 @@ const UserForm = (props) => {
                     <input type="password" onChange={ passwordHandler }
                     value={passwordConfirm} />
                     {
-                        passwordLengthError ?
-                        <p style={{color:"red"}}>{passwordLengthError}</p> :
-                        {passwordLengthError}
+                        error.passwordLengthError ?
+                        <p style={{color:"red"}}>{error.passwordLengthError}</p> :
+                        null
                     }
                     {
-                        passwordMatchError ?
-                        <p style={{color:"red"}}>{passwordMatchError}</p> :
-                        {passwordMatchError}
+                        error.passwordMatchError ?
+                        <p style={{color:"red"}}>{error.passwordMatchError}</p> :
+                        null
                     }
                 </div>
                 <input type="submit" value="Create User" className={styles.btn } />

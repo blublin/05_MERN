@@ -20,7 +20,7 @@ function App() {
   return (
     <div className="App">
       <UserForm user={ user } setUser={ setUser } />
-      <DisplayForm setUser={ setUser }/>
+      <DisplayForm user={ user }/>
     </div>
   );
 }

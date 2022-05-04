@@ -1,4 +1,4 @@
-import React, { useState } from  'react';
+// import React, { useState } from  'react';
 import styles from './css/UserForm.module.css';
 
 
@@ -9,7 +9,7 @@ const DisplayUser = (props) => {
     email,
     password,
     passwordConfirm,
-    } = this.props.user;
+    } = props.user;
 
     return(
         <div className={styles.container }>
