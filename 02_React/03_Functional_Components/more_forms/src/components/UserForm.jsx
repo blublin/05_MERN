@@ -35,87 +35,37 @@ const [error, setError] = useState({
             ...user,
             firstName: e.target.value
         });
-        if (firstName && firstName.length < 2) {
-            setError({
-                ...error,
-                fNameError: "First name must be at least 2 characters long."
-            });
-        }
-        else {
-            setError({
-                ...error,
-                fNameError: ""
-            });
-        }
+        // console.log(firstName)
+        // if (firstName && firstName.length < 2) {
+        //     setError({
+        //         ...error,
+        //         fNameError: "First name must be at least 2 characters long."
+        //     });
+        // }
+        // else {
+        //     setError({
+        //         ...error,
+        //         fNameError: ""
+        //     });
+        // }
     }
     const lNameHandler = (e) => {
         setUser({
             ...user,
             lastName: e.target.value
         });
-        if (lastName && lastName.length < 2) {
-            setError({
-                ...error,
-                lNameError: "Last name must be at least 2 characters long."
-            });
-        }
-        else {
-            setError({
-                ...error,
-                lNameError: ""
-            });
-        }
     }
     const emailHandler = (e) => {
         setUser({
             ...user,
             email: e.target.value
         });
-        if (email && email.length < 5) {
-            setError({
-                ...error,
-                emailError: "Email must be at least 5 characters long."
-            });
-        }
-        else {
-            setError({
-                ...error,
-                emailError: ""
-            });
-        }
     }
     const passwordHandler = (e) => {
         setUser({
             ...user,
             passwordConfirm:e.target.value
         });
-        if (password && passwordConfirm) {
-            if (password !== passwordConfirm) {
-                setError({
-                    ...error,
-                    passwordMatchError: "Passwords must match"
-                });
-            }
-            else {
-                setError({
-                    ...error,
-                    passwordMatchError: ""
-                });
-            }
-
-            if( password.length < 8) {
-                setError({
-                    ...error,
-                    passwordLengthError: "Password must be at least 8 characters long."
-                });
-            }
-            else {
-                setError({
-                    ...error,
-                    passwordLengthError: ""
-                });
-            }
-        }
     }
     
     return(
@@ -126,8 +76,8 @@ const [error, setError] = useState({
                     <input type="text" onChange={ fNameHandler }
                     value={firstName} />
                     {
-                        error.fNameError ?
-                        <p style={{color:"red"}}>{error.fNameError}</p> :
+                        firstName && firstName.length < 2 ?
+                        <p style={{color:"red"}}>"First name must be at least 2 characters long."</p> :
                         null
                     }
                 </div>
@@ -136,8 +86,8 @@ const [error, setError] = useState({
                     <input type="text" onChange={ lNameHandler }
                     value={lastName} />
                     {
-                        error.lNameError ?
-                        <p style={{color:"red"}}>{error.lNameError}</p> :
+                        lastName && lastName.length < 2 ?
+                        <p style={{color:"red"}}>"Last name must be at least 2 characters long."</p> :
                         null
                     }
                 </div>
@@ -146,8 +96,8 @@ const [error, setError] = useState({
                     <input type="email" onChange={ emailHandler }
                     value={email} />
                     {
-                        error.emailError ?
-                        <p style={{color:"red"}}>{error.emailError}</p> :
+                        email && email.length < 5 ?
+                        <p style={{color:"red"}}>"Email must be at least 5 characters long."</p> :
                         null
                     }
                 </div>
@@ -156,14 +106,18 @@ const [error, setError] = useState({
                     <input type="password"  onChange={ (e) => setUser({...user,"password":e.target.value}) }
                     value={password} />
                     {
-                        error.passwordLengthError ?
-                        <p style={{color:"red"}}>{error.passwordLengthError}</p> :
-                        null
+                        password && passwordConfirm
+                        ? password !== passwordConfirm
+                            ? <p style={{color:"red"}}>"Passwords must match"</p>
+                            : null
+                        : null
                     }
                     {
-                        error.passwordMatchError ?
-                        <p style={{color:"red"}}>{error.passwordMatchError}</p> :
-                        null
+                        password && passwordConfirm
+                            ? password.length < 8
+                                ? <p style={{color:"red"}}>"Password must be at least 8 characters long."</p>
+                                : null
+                            : null
                     }
                 </div>
                 <div>
@@ -171,14 +125,11 @@ const [error, setError] = useState({
                     <input type="password" onChange={ passwordHandler }
                     value={passwordConfirm} />
                     {
-                        error.passwordLengthError ?
-                        <p style={{color:"red"}}>{error.passwordLengthError}</p> :
-                        null
-                    }
-                    {
-                        error.passwordMatchError ?
-                        <p style={{color:"red"}}>{error.passwordMatchError}</p> :
-                        null
+                        password && passwordConfirm
+                        ? password !== passwordConfirm
+                            ? <p style={{color:"red"}}>"Passwords must match"</p>
+                            : null
+                        : null
                     }
                 </div>
                 <input type="submit" value="Create User" className={styles.btn } />
