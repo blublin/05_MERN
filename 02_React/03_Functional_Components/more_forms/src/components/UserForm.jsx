@@ -30,41 +30,11 @@ const [error, setError] = useState({
         console.log("Welcome", newUser);
     };
 
-    const fNameHandler = (e) => {
+    const keyHandler = (e) => {
+        const {value, name} = e.target
         setUser({
             ...user,
-            firstName: e.target.value
-        });
-        // console.log(firstName)
-        // if (firstName && firstName.length < 2) {
-        //     setError({
-        //         ...error,
-        //         fNameError: "First name must be at least 2 characters long."
-        //     });
-        // }
-        // else {
-        //     setError({
-        //         ...error,
-        //         fNameError: ""
-        //     });
-        // }
-    }
-    const lNameHandler = (e) => {
-        setUser({
-            ...user,
-            lastName: e.target.value
-        });
-    }
-    const emailHandler = (e) => {
-        setUser({
-            ...user,
-            email: e.target.value
-        });
-    }
-    const passwordHandler = (e) => {
-        setUser({
-            ...user,
-            passwordConfirm:e.target.value
+            [name]: value
         });
     }
     
@@ -73,7 +43,9 @@ const [error, setError] = useState({
             <form onSubmit={ createUser } className={styles.flex }>
                 <div>
                     <label className={styles.label}>First name: </label>
-                    <input type="text" onChange={ fNameHandler }
+                    <input onChange={ keyHandler }
+                    name="firstName"
+                    type="text" 
                     value={firstName} />
                     {
                         firstName && firstName.length < 2 ?
@@ -83,7 +55,9 @@ const [error, setError] = useState({
                 </div>
                 <div>
                     <label className={styles.label}>Last name: </label>
-                    <input type="text" onChange={ lNameHandler }
+                    <input onChange={ keyHandler }
+                    name="lastName"
+                    type="text" 
                     value={lastName} />
                     {
                         lastName && lastName.length < 2 ?
@@ -93,7 +67,9 @@ const [error, setError] = useState({
                 </div>
                 <div>
                     <label className={styles.label}>Email Address: </label>
-                    <input type="email" onChange={ emailHandler }
+                    <input onChange={ keyHandler }
+                    name="email"
+                    type="text" 
                     value={email} />
                     {
                         email && email.length < 5 ?
@@ -103,7 +79,9 @@ const [error, setError] = useState({
                 </div>
                 <div>
                     <label className={styles.label}>Password: </label>
-                    <input type="password"  onChange={ (e) => setUser({...user,"password":e.target.value}) }
+                    <input onChange={ keyHandler }
+                    name="password"
+                    type="password" 
                     value={password} />
                     {
                         password && passwordConfirm
@@ -122,7 +100,9 @@ const [error, setError] = useState({
                 </div>
                 <div>
                     <label className={styles.label}>Confirm Password: </label>
-                    <input type="password" onChange={ passwordHandler }
+                    <input onChange={ keyHandler }
+                    name="passwordConfirm"
+                    type="password" 
                     value={passwordConfirm} />
                     {
                         password && passwordConfirm

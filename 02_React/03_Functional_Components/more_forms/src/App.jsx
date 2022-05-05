@@ -6,15 +6,10 @@ import DisplayForm from './components/DisplayForm';
 function App() {
   const [ user, setUser ] = useState({
     firstName: "",
-    fNameError: "",
     lastName: "",
-    lNameError: "",
     email: "",
-    emailError: "",
     password: "",
     passwordConfirm: "",
-    passwordLengthError: "",
-    passwordMatchError: "",
   })
 
   return (
