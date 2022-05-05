@@ -6,21 +6,24 @@ import DisplayForm from './components/DisplayForm';
 function App() {
   const [ user, setUser ] = useState({
     firstName: "",
-    fNameError: "",
     lastName: "",
-    lNameError: "",
     email: "",
-    emailError: "",
     password: "",
     passwordConfirm: "",
-    passwordLengthError: "",
-    passwordMatchError: "",
   })
+  const [ newUser, setNewUser ] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  })
+
 
   return (
     <div className="App">
-      <UserForm user={ user } setUser={ setUser } />
-      <DisplayForm user={ user }/>
+      <h1>Hello World!</h1>
+      <UserForm user={ user } setUser={ setUser } setNewUser={ setNewUser } />
+      <DisplayForm user={ newUser }/>
     </div>
   );
 }
