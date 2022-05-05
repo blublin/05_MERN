@@ -21,9 +21,14 @@ function App() {
 
   return (
     <div className="App">
+<<<<<<< Updated upstream
       <h1>Hello World!</h1>
       <UserForm user={ user } setUser={ setUser } setNewUser={ setNewUser } />
       <DisplayForm user={ newUser }/>
+=======
+      <UserForm user={ user } setUser={ setUser } x={x} />
+      <DisplayForm user={ user }/>
+>>>>>>> Stashed changes
     </div>
   );
 }

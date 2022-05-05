@@ -4,119 +4,86 @@ import styles from './css/UserForm.module.css';
 
 const UserForm = (props) => {
     const {
-        firstName,
-        lastName,
-        email,
-        password,
-        passwordConfirm,
-    } = props.user;
+    firstName,
+    lastName,
+    email,
+    password,
+    passwordConfirm,
+} = props.user;
 
-    const [error, setError] = useState({
-        fNameError: "",
-        lNameError: "",
-        emailError: "",
-        passwordLengthError: "",
-        passwordMatchError: ""
-    })
+const [error, setError] = useState({
+    fNameError: "",
+    lNameError: "",
+    emailError: "",
+    passwordLengthError: "",
+    passwordMatchError: ""
+})
 
     const user = props.user;
     const setUser = props.setUser;
 
-    // Form submission
     const createUser = (e) => {
         e.preventDefault();
-        if (Object.values(error).every( (e) => !e)) {
-            props.setNewUser({ firstName, lastName, email, password });
-            setUser({
-                firstName: "",
-                lastName: "",
-                email: "",
-                password: "",
-                passwordConfirm: "",
-            });
-        }
+        const newUser = { firstName, lastName, email, password }
+        console.log("Welcome", newUser);
     };
 
-    // Setter handlers
-    const fNameHandler = (e) => {
+    const keyHandler = (e) => {
+        const {value, name} = e.target
         setUser({
             ...user,
-            firstName: e.target.value
+            [name]: value
         });
-    }
-    const lNameHandler = (e) => {
-        setUser({
-            ...user,
-            lastName: e.target.value
-        });
-    }
-    const emailHandler = (e) => {
-        setUser({
-            ...user,
-            email: e.target.value
-        });
-    }
-    const passwordHandler = (e) => {
-        setUser({
-            ...user,
-            passwordConfirm:e.target.value
-        });
+        setErrors(name, value)
     }
 
-    // Error Message Handling
-    const fNameCheck = () => {
-        if (firstName && firstName.length < 2) {
-            setError({...error, fNameError : "First name must be at least 2 characters long."})
-            return true
+    const setErrors = (name, value) => {
+        switch (name) {
+            case "firstName":
+                if (value && value.length < 2){
+                    const errVal = "First name must be at least 2 characters long."
+                }
+                else {
+                    const errVal = ""
+                }
+                break;
+            case "lastName":
+                if (value && value.length < 2){
+                    errVal = "Last name must be at least 2 characters long."
+                }
+                else {
+                    const errVal = ""
+                }
+                break;
+            case "email":
+                if (value && value.length < 5){
+                    errVal = "Email name must be at least 5 characters long."
+                }
+                else {
+                    const errVal = ""
+                }
+                break;
+            case "password":
+                if (value && passwordConfirm && value !== passwordConfirm){
+                    errVal = "Passwords must match"
+                }
+                else {
+                    const errVal = ""
+                }
+                break;
+            case "passwordConfirm":
+                if (value && password && value.length < 8){
+                    errVal = "Password must be at least 8 characters long."
+                }
+                else {
+                    const errVal = ""
+                }
+                break;
         }
-        else{
-            setError({...error, fNameError : ""})
-            return false
-        }
-    }
-    const lNameCheck = () => {
-        if (lastName && lastName.length < 2) {
-            setError({...error, fNameError : "Last name must be at least 2 characters long."})
-            return true
-        }
-        else{
-            setError({...error, fNameError : ""})
-            return false
-        }
-    }
-    const emailCheck = () => {
-        if (email && email.length < 5) {
-            setError({...error, fNameError : "Email must be at least 5 characters long."})
-            return true
-        }
-        else{
-            setError({...error, fNameError : ""})
-            return false
-        }
-    }
-    const pMatchCheck = () => {
-        if (password && passwordConfirm) {
-            if (password !== passwordConfirm) {
-                setError({...error, fNameError : "Passwords must match."})
-                return true
-            }
-            else{
-                setError({...error, fNameError : ""})
-                return false
-            }
-        }
-    }
-    const pLengthCheck = () => {
-        if (password && passwordConfirm) {
-            if (password.length < 8) {
-                setError({...error, fNameError : "Password must be at least 8 characters long."})
-                return true
-            }
-            else{
-                setError({...error, fNameError : ""})
-                return false
-            }
-        }
+        setError({
+            ...error,
+            [name]: errVal
+        });
     }
 
     return(
@@ -124,58 +91,44 @@ const UserForm = (props) => {
             <form onSubmit={ createUser } className={styles.flex }>
                 <div>
                     <label className={styles.label}>First name: </label>
-                    <input type="text" onChange={ fNameHandler }
+                    <input onChange={ keyHandler }
+                    name="firstName"
+                    type="text" 
                     value={firstName} />
-                    {
-                        fNameCheck()
-                            ? <p style={{color:"red"}}>{ error.fNameError }</p>
-                            : null
-                    }
+                    <p style={{color:"red"}}>{ error.fNameError}</p>
                 </div>
                 <div>
                     <label className={styles.label}>Last name: </label>
-                    <input type="text" onChange={ lNameHandler }
+                    <input onChange={ keyHandler }
+                    name="lastName"
+                    type="text" 
                     value={lastName} />
-                    {
-                        lNameCheck()
-                            ? <p style={{color:"red"}}>{ error.lNameError }</p>
-                            : null
-                    }
+                    <p style={{color:"red"}}>{ error.lNameError}</p>
                 </div>
                 <div>
                     <label className={styles.label}>Email Address: </label>
-                    <input type="email" onChange={ emailHandler }
+                    <input onChange={ keyHandler }
+                    name="email"
+                    type="text" 
                     value={email} />
-                    {
-                        emailCheck()
-                            ? <p style={{color:"red"}}>{ error.emailError }</p>
-                            : null
-                    }
+                    <p style={{color:"red"}}>{ error.emailError}</p>
                 </div>
                 <div>
                     <label className={styles.label}>Password: </label>
-                    <input type="password"  onChange={ (e) => setUser({...user,"password":e.target.value}) }
+                    <input onChange={ keyHandler }
+                    name="password"
+                    type="password" 
                     value={password} />
-                    {
-                        pMatchCheck()
-                            ? <p style={{color:"red"}}>{ error.passwordMatchError }</p>
-                            : null
-                    }
-                    {
-                        pLengthCheck()
-                            ? <p style={{color:"red"}}>{ error.passwordLengthError}</p>
-                            : null
-                    }
+                    <p style={{color:"red"}}>{ error.passwordMatchError}</p>
+                    <p style={{color:"red"}}>{ error.passwordLengthError}</p>
                 </div>
                 <div>
                     <label className={styles.label}>Confirm Password: </label>
-                    <input type="password" onChange={ passwordHandler }
+                    <input onChange={ keyHandler }
+                    name="passwordConfirm"
+                    type="password" 
                     value={passwordConfirm} />
-                    {
-                        pMatchCheck()
-                            ? <p style={{color:"red"}}>{ error.passwordMatchError }</p>
-                            : null
-                    }
+                    <p style={{color:"red"}}>{ error.passwordMatchError}</p>
                 </div>
                 <input type="submit" value="Create User" className={styles.btn } />
             </form>
