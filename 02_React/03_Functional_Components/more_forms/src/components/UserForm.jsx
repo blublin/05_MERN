@@ -38,52 +38,61 @@ const [error, setError] = useState({
     }
 
     const setErrors = (name, value) => {
+        console.log(`Begun set error with\nname: ${name} || value: ${value}`)
+        let errVal = ""
         switch (name) {
             case "firstName":
+                console.log(`Triggered firstName.`)
+                console.log(`Value: ${value}\n||\nValue Length: ${value.length} `)
                 if (value && value.length < 2){
-                    const errVal = "First name must be at least 2 characters long."
+                    errVal = "First name must be at least 2 characters long."
                 }
-                else {
-                    const errVal = ""
-                }
+                setError({
+                    ...error,
+                    fNameError: errVal
+                });
                 break;
             case "lastName":
                 if (value && value.length < 2){
                     errVal = "Last name must be at least 2 characters long."
                 }
-                else {
-                    const errVal = ""
-                }
+                setError({
+                    ...error,
+                    lNameError: errVal
+                });
                 break;
             case "email":
                 if (value && value.length < 5){
                     errVal = "Email name must be at least 5 characters long."
                 }
-                else {
-                    const errVal = ""
-                }
+                setError({
+                    ...error,
+                    emailError: errVal
+                });
                 break;
             case "password":
                 if (value && passwordConfirm && value !== passwordConfirm){
                     errVal = "Passwords must match"
                 }
-                else {
-                    const errVal = ""
-                }
+                setError({
+                    ...error,
+                    passwordLengthError: errVal
+                });
                 break;
             case "passwordConfirm":
                 if (value && password && value.length < 8){
                     errVal = "Password must be at least 8 characters long."
                 }
-                else {
-                    const errVal = ""
-                }
+                setError({
+                    ...error,
+                    passwordMatchError: errVal
+                });
                 break;
         }
-        setError({
-            ...error,
-            [name]: errVal
-        });
+        // setError({
+        //     ...error,
+        //     [name]: errVal
+        // });
     }
 
     return(
