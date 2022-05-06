@@ -20,9 +20,12 @@ const Display = (props) => {
                         height: colObj.dimension+'px',
                         width: colObj.dimension+'px',
                         textAlign: 'center',
-                        fontSize: '30px',
+                        fontSize: '10px',
+                        color: colObj.color === 'black' ? 'white' : 'black',
                         margin: "5px"}}>
-                        {colObj}
+                        Color: {colObj.color}
+                        <hr />
+                        Dimension: {colObj.dimension}
                     </div>
                 )
             })
