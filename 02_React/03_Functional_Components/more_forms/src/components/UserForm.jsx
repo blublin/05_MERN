@@ -21,11 +21,29 @@ const [error, setError] = useState({
 
     const user = props.user;
     const setUser = props.setUser;
+    const setNU = props.setNewUser;
 
     const createUser = (e) => {
         e.preventDefault();
-        const newUser = { firstName, lastName, email, password }
-        console.log("Welcome", newUser);
+        // console.log(e)
+        // console.log(`First Name: ${e.target["0"].value}`)
+        // console.log(`Last Name: ${e.target["1"].value}`)
+        // console.log(`Email: ${e.target["2"].value}`)
+        // console.log(`Password: ${e.target["3"].value}`)
+        // console.log(`Password Confirm: ${e.target["4"].value}`)
+        if (Object.values(error).every( (v) => !v)) {
+            setNU({ firstName, lastName, email, password })
+            console.log("Welcome new user!");
+            // I hate the asynchronous nature of REACT
+            // Object.keys(user).forEach( (k) => setUser( { ...user, [k]:""  } ))
+            setUser({
+                firstName: "",
+                lastName: "",
+                email: "",
+                password: "",
+                passwordConfirm: ""
+              });
+        }
     };
 
     const keyHandler = (e) => {

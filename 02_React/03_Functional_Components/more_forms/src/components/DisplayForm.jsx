@@ -1,15 +1,13 @@
-// import React, { useState } from  'react';
 import styles from './css/UserForm.module.css';
 
 
-const DisplayUser = (props) => {
+const DisplayForm = (props) => {
     const {
     firstName,
     lastName,
     email,
-    password,
-    passwordConfirm,
-    } = props.user;
+    password
+    } = props.newUser;
 
     return(
         <div className={styles.container }>
@@ -26,12 +24,9 @@ const DisplayUser = (props) => {
                 <p>
                     Password: {password}
                 </p>
-                <p>
-                    Password Confirm: {passwordConfirm}
-                </p>
             </div>
         </div>
     );
 };
     
-export default DisplayUser;
+export default DisplayForm;
