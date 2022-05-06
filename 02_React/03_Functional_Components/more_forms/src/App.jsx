@@ -9,13 +9,25 @@ function App() {
     lastName: "",
     email: "",
     password: "",
+<<<<<<< HEAD
     passwordConfirm: "",
+=======
+    passwordConfirm: ""
+>>>>>>> state-create-user
   })
+  const [ newUser, setNewUser ] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  })
+
 
   return (
     <div className="App">
-      <UserForm user={ user } setUser={ setUser } />
-      <DisplayForm user={ user }/>
+      <h1>Hello World!</h1>
+      <UserForm user={ user } setUser={ setUser } setNewUser={ setNewUser } />
+      <DisplayForm newUser={ newUser }/>
     </div>
   );
 }
