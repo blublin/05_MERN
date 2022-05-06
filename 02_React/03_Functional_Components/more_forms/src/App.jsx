@@ -9,7 +9,7 @@ function App() {
     lastName: "",
     email: "",
     password: "",
-    passwordConfirm: "",
+    passwordConfirm: ""
   })
   const [ newUser, setNewUser ] = useState({
     firstName: "",
@@ -23,7 +23,7 @@ function App() {
     <div className="App">
       <h1>Hello World!</h1>
       <UserForm user={ user } setUser={ setUser } setNewUser={ setNewUser } />
-      <DisplayForm user={ newUser }/>
+      <DisplayForm newUser={ newUser }/>
     </div>
   );
 }
