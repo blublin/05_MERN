@@ -9,11 +9,7 @@ function App() {
     lastName: "",
     email: "",
     password: "",
-<<<<<<< HEAD
-    passwordConfirm: "",
-=======
     passwordConfirm: ""
->>>>>>> state-create-user
   })
   const [ newUser, setNewUser ] = useState({
     firstName: "",

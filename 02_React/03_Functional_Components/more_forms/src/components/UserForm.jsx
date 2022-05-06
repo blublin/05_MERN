@@ -52,8 +52,6 @@ const [error, setError] = useState({
             ...user,
             [name]: value
         });
-<<<<<<< HEAD
-=======
         setErrors(name, value)
     }
 
@@ -113,7 +111,6 @@ const [error, setError] = useState({
         //     ...error,
         //     [name]: errVal
         // });
->>>>>>> state-create-user
     }
 
     return(
