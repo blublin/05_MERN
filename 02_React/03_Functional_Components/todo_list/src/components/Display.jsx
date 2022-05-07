@@ -12,10 +12,12 @@ const Display = (props) => {
         console.log(`id: ${id} || checked: ${checked}`)
         const newTodos = [...todos]; // full array copy
         const newTodoObj = newTodos[id]; // the object in the array modifying.
-        // console.log("New Todo Obj:", newTodoObj);
         newTodoObj.isComplete = checked; // update boolean value
         newTodos.splice(id, 1, newTodoObj); // inplace replace with new object
-        // const newTodos = todos.map( (tObj, ind) => id === ind ? tObj.isComplete = checked : null )
+        // const newTodos = todos.map( (tObj, ind) => {
+        //     if (id === ind) tObj.isComplete = checked
+        //     return tObj
+        // });
         aTD(newTodos); // replace todos with new Todos
     }
 
@@ -42,7 +44,7 @@ const Display = (props) => {
                         checked={isComplete}/>
                         {
                             isComplete
-                                ? <button onClick={ null }>Delete</button>
+                                ? <button onClick={ null } style={{marginLeft:'15px', padding: '10px'}}>Delete</button>
                                 : null
                         }
                     </p>
