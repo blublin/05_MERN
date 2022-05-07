@@ -21,11 +21,12 @@ const Display = (props) => {
         aTD(newTodos); // replace todos with new Todos
     }
 
-    // const removeTask = (ind) => {
-    //     // Remove task object if delete button is pressed, based on index.
-    //     const newTodos = todos.filter( (_, index) => ind !== ind )
-    //     aTD(newTodos);
-    // }
+    const removeTask = (event, ind) => {
+        // Remove task object if delete button is pressed, based on index.
+        const newTodos = [...todos];
+        newTodos.splice(ind, 1);
+        aTD(newTodos);
+    }
 
   return (
     <fieldset>
@@ -36,16 +37,23 @@ const Display = (props) => {
                     const {task, isComplete} = tObj;
                     return (
                     <p key={ind}>
-                        {task}
+                        {/* Conditional render strikethroughed task */}
+                        {
+                            isComplete
+                                ? <s>{task}</s>
+                                : {task}
+                        }
                         <input
                         onChange={ checkboxHandler }
                         type="checkbox"
                         id={ind}
                         checked={isComplete}/>
                         {
-                            isComplete
-                                ? <button onClick={ null } style={{marginLeft:'15px', padding: '10px'}}>Delete</button>
-                                : null
+                            // Conditionally render delete button and pass event + index to callback function
+                            isComplete &&
+                                <button onClick={
+                                    (e) => removeTask(e, ind) }
+                                    style={{marginLeft:'15px', padding: '10px'}}>Delete</button>
                         }
                     </p>
                     )
