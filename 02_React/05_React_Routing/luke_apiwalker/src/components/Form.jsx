@@ -17,6 +17,7 @@ const Form = (props) => {
     }
 
     const submitHandler = (e) => {
+        e.preventDefault();
         queryObj.queryType && queryObj.id
             ? navigate(`${queryObj.queryType}/${queryObj.id}`)
             : alert("Incomplete search request. Please fill out all information!");
