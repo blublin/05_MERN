@@ -12,7 +12,7 @@ const Display = () => {
   const {query, num} = useParams();
 
   const peopleHomeworld = (url) => {
-    setTimeout( (url) => {
+    setTimeout( () => {
       axios.get(url)
         .then( resp => {
           setHomeworld(resp.data.name);
