@@ -21,6 +21,8 @@ const Display = () => {
   }
 
   useEffect( () => {
+    // Reset ApiData so that it does't show wrong previous data
+    setApiData(null)
     if (query) {
       let apiQuery = `https://swapi.dev/api/${query}/${num}/`;
       axios.get(apiQuery)
@@ -33,7 +35,6 @@ const Display = () => {
       })
       .catch( err => {
         console.log("Error", err)
-        // return ( <h1>These are not the droids you're looking for...*magic hand wave*</h1>) 
         setErrMsg("These are not the droids you're looking for...*magic hand wave*")
         setErrImg(
           `⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⣤⣴⣶⣶⣿⣿⣿⣿⣿⣿⣶⣶⣦⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -79,7 +80,7 @@ const Display = () => {
         apiData && !errMsg && ((
           query === 'planets' &&
         <>
-          <h1>Planet Name: {apiData.name}</h1>
+          <h1>Planet Name: {apiData.name || ''}</h1>
           <h2>Climate: {apiData.climate || ''}</h2>
           <h2>Orbiatal Period: {apiData.orbital_period || ''}</h2>
           <h2>Terrain: {(apiData.terrain &&
@@ -89,7 +90,6 @@ const Display = () => {
         )
         ||
         ( query === 'people' &&
-        
         <>
           <h1>Name: {apiData.name || ''}</h1>
           <h2>Hair: {apiData.hair_color || ''}</h2>
