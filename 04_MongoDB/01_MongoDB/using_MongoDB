@@ -1,0 +1,143 @@
+test> use my_first_db
+switched to db my_first_db
+my_first_db> db.createCollection("students")
+{ ok: 1 }
+my_first_db> db.students.insertOne({ name: "John Joe", home_state: "Alaska", lucky_number: 20, birthday: {month: 8, day: 25, year: 1980}})
+{
+  acknowledged: true,
+  insertedId: ObjectId("627ea2dd6410db9d19e0b730")
+}
+my_first_db> db.students.insertOne({ name: "Jane Doe", home_state: "California", lucky_number: 10, birthday: {month: 2, day: 13, year: 1990}})
+{
+  acknowledged: true,
+  insertedId: ObjectId("627ea2f46410db9d19e0b731")
+}
+my_first_db> db.students.insertOne({ name: "Mr. Crabs", home_state: "Maine", lucky_number: 100, birthday: {month: 12, day: 3, year: 1970}})
+{
+  acknowledged: true,
+  insertedId: ObjectId("627ea30b6410db9d19e0b732")
+}
+my_first_db> db.students.insertOne({ name: "Baby Jill", home_state: "Florida", lucky_number: 3, birthday: {month: 11, day: 4, year: 2020}})
+{
+  acknowledged: true,
+  insertedId: ObjectId("627ea32c6410db9d19e0b733")
+}
+my_first_db> db.students.insertOne({ name: "Billy Bob", home_state: "Ohio", lucky_number: 17, birthday: {month: 7, day: 16, year: 2004}})
+{
+  acknowledged: true,
+  insertedId: ObjectId("627ea3536410db9d19e0b734")
+}
+my_first_db> db.students.find()
+[
+  {
+    _id: ObjectId("627ea2dd6410db9d19e0b730"),
+    name: 'John Joe',
+    home_state: 'Alaska',
+    lucky_number: 20,
+    birthday: { month: 8, day: 25, year: 1980 }
+  },
+  {
+    _id: ObjectId("627ea2f46410db9d19e0b731"),
+    name: 'Jane Doe',
+    home_state: 'California',
+    lucky_number: 10,
+    birthday: { month: 2, day: 13, year: 1990 }
+  },
+  {
+    _id: ObjectId("627ea30b6410db9d19e0b732"),
+    name: 'Mr. Crabs',
+    home_state: 'Maine',
+    lucky_number: 100,
+    birthday: { month: 12, day: 3, year: 1970 }
+  },
+  {
+    _id: ObjectId("627ea32c6410db9d19e0b733"),
+    name: 'Baby Jill',
+    home_state: 'Florida',
+    lucky_number: 3,
+    birthday: { month: 11, day: 4, year: 2020 }
+  },
+  {
+    _id: ObjectId("627ea3536410db9d19e0b734"),
+    name: 'Billy Bob',
+    home_state: 'Ohio',
+    lucky_number: 17,
+    birthday: { month: 7, day: 16, year: 2004 }
+  }
+]
+my_first_db> db.students.find( {home_state: {"$regex": "^Cal|^Was"} } )
+[
+  {
+    _id: ObjectId("627ea2f46410db9d19e0b731"),
+    name: 'Jane Doe',
+    home_state: 'California',
+    lucky_number: 10,
+    birthday: { month: 2, day: 13, year: 1990 }
+  }
+]
+my_first_db> db.students.find( {lucky_number: {$gt: 3}} )
+[
+  {
+    _id: ObjectId("627ea2dd6410db9d19e0b730"),
+    name: 'John Joe',
+    home_state: 'Alaska',
+    lucky_number: 20,
+    birthday: { month: 8, day: 25, year: 1980 }
+  },
+  {
+    _id: ObjectId("627ea2f46410db9d19e0b731"),
+    name: 'Jane Doe',
+    home_state: 'California',
+    lucky_number: 10,
+    birthday: { month: 2, day: 13, year: 1990 }
+  },
+  {
+    _id: ObjectId("627ea30b6410db9d19e0b732"),
+    name: 'Mr. Crabs',
+    home_state: 'Maine',
+    lucky_number: 100,
+    birthday: { month: 12, day: 3, year: 1970 }
+  },
+  {
+    _id: ObjectId("627ea3536410db9d19e0b734"),
+    name: 'Billy Bob',
+    home_state: 'Ohio',
+    lucky_number: 17,
+    birthday: { month: 7, day: 16, year: 2004 }
+  }
+]
+my_first_db> db.students.find( {lucky_number: {$lte: 10}} )
+[
+  {
+    _id: ObjectId("627ea2f46410db9d19e0b731"),
+    name: 'Jane Doe',
+    home_state: 'California',
+    lucky_number: 10,
+    birthday: { month: 2, day: 13, year: 1990 }
+  },
+  {
+    _id: ObjectId("627ea32c6410db9d19e0b733"),
+    name: 'Baby Jill',
+    home_state: 'Florida',
+    lucky_number: 3,
+    birthday: { month: 11, day: 4, year: 2020 }
+  }
+]
+my_first_db> db.students.find( { lucky_number: { $gte: 1, $lte: 9 } } )
+[
+  {
+    _id: ObjectId("627ea32c6410db9d19e0b733"),
+    name: 'Baby Jill',
+    home_state: 'Florida',
+    lucky_number: 3,
+    birthday: { month: 11, day: 4, year: 2020 }
+  }
+]
+my_first_db> db.students.updateMany( {}, {$set: {interest: ['coding', 'brunch', 'MongoDB'] }}, false, true)
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 5,
+  modifiedCount: 5,
+  upsertedCount: 0
+}
