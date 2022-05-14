@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
 
-const Form = (props) => {
+const Form = () => {
     const navigate = useNavigate();
     const [queryObj, setQueryObj] = useState({
         queryType: "people",

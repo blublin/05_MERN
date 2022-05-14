@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter as Router, Link, Routes, Route } from "react-router-dom"
+import {BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import Form from './components/Form';
 import Display from './components/Display';
 

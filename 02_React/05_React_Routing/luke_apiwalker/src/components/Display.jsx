@@ -77,7 +77,7 @@ const Display = () => {
   return (
     <div>
       {
-        apiData && !errMsg && ((
+        !errMsg && apiData && ((
           query === 'planets' &&
         <>
           <h1>Planet Name: {apiData.name || ''}</h1>
