@@ -1,7 +1,0 @@
-1. Extract HelloMongoose
-2. cd to new Mongoose App
-3. npm init -y; npm i express mongoose
-4. ctrl+f "user", replace "your_model" -> preserve case -> replace all
-in controller, model, route, server
-5. rename config, controller, model files
-6. nodemon server.js
