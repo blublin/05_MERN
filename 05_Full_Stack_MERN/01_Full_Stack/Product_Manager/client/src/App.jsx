@@ -1,12 +1,19 @@
 import './App.css';
-import Form from './views/Form';
+import {BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Main from './views/Main';
+import ProductDetail from './views/ProductDetail';
 
 function App() {
   return (
-    <fieldset className='App'>
-      <legend>App.jsx</legend>
-      <Form />
-    </fieldset>
+    <Router>
+      <fieldset className='App'>
+        <legend>App.jsx</legend>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/:prodID" element={<ProductDetail />} />
+        </Routes>
+      </fieldset>
+    </Router>
   );
 }
 
