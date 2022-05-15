@@ -15,7 +15,10 @@
 2. `cd client`
 3. `npm i axios react-router-dom`
 4. mkdir src/views, src/components
-5. `import {BrowserRouter as Router, Link, Routes, Route } from "react-router-dom"` as needed
+5. `import {BrowserRouter as Router, Link, Routes, Route, useParams } from "react-router-dom"` as needed
 6. `import { useNavigate} from "react-router"` as  needed\
 -- `const navigate = useNavigate()`\
 -- `navigate(`\`REDIRECT URL\``)` with backticks
+
+### Notes
+- Controller response parameter is initial key in axios then
