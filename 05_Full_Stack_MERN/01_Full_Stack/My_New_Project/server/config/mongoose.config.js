@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const database = "crmdb"
 
-mongoose.connect("mongodb://localhost/my_first_db", {
+mongoose.connect("mongodb://localhost/"+database, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
 })
