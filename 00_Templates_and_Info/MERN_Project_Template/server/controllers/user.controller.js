@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
 
-module.exports.findAllUsers = (req, res) => {
+module.exports.findAllUsers = (_, res) => {
   User.find()
     .then( users => res.json( { users } ))
     .catch( err => res.status(400).json( { message: "Something went wrong", err } ));
