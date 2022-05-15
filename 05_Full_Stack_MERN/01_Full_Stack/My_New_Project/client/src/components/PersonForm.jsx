@@ -14,7 +14,7 @@ const PersonForm = () => {
         firstName,
         lastName,
       })
-      .then((res) => console.log(res))
+      .then((res) => console.log(`Axios response data:`, res.data))
       .catch((err) => console.log(err));
   };
   //onChange to update firstName and lastName

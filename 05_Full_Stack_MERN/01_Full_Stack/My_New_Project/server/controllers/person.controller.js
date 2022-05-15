@@ -8,7 +8,7 @@ module.exports.index = (_, hotdog) => {
 
 module.exports.createPerson = (pizza, fries) => {
     const {firstName, lastName} = pizza.body;
-    Person.createPerson({
+    Person.create({
         firstName,
         lastName
     })
