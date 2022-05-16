@@ -29,8 +29,7 @@ const Display = () => {
     <fieldset>
       <legend>Display.jsx</legend>
       {(productState &&
-        productState.products &&
-        productState.products.map((product, idx) => {
+        productState.map((product, idx) => {
           return (
             <p key={idx}>
               <Link to={`/${product._id}`}>{product.title}</Link>

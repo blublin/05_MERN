@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 const ProductDetail = () => {
   const [productObj, setProductObj] = useState();
@@ -24,9 +24,10 @@ const ProductDetail = () => {
       <legend>ProductDetail.jsx</legend>
       {(productObj && (
         <>
-          <h1>Title: {productObj.oneProduct.title}</h1>
-          <h1>Price: {productObj.oneProduct.price}</h1>
-          <h1>Description: {productObj.oneProduct.description}</h1>
+          <h1>Title: {productObj.title}</h1>
+          <h1>Price: {productObj.price}</h1>
+          <h1>Description: {productObj.description}</h1>
+          <h3><Link to={`/${prodID}/edit`}>Edit {productObj.title}</Link></h3>
         </>
       )) ||
         (prodID && <h3>Loading data for ID: {prodID}</h3>) || (
