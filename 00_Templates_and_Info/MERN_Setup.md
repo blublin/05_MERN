@@ -23,6 +23,8 @@
     - `<Link>` is nearly identical to `<a>` tag, but uses `to={''}` instead of `href=`
 - `const navigate = useNavigate()`
     - `navigate(`\`REDIRECT URL\``)` with backticks
+- Navigate/Link local React (port 3000)
+- axios to Express Server (port 8000)
 - `const params = useParams()`
     - `const { urlVariablesFromRoutes } = params`
     - Variables defined in routes with `:variable`
