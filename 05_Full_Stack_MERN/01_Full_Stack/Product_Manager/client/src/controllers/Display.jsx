@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 const Display = () => {
-  const [productState, setProductState] = useState({});
+  const [productState, setProductState] = useState(null);
   const [errState, setErrState] = useState("");
 
   const getAllURL = "http://localhost:8000/api/products";

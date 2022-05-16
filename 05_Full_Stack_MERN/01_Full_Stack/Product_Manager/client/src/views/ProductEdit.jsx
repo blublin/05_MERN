@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { useParams } from "react-router-dom";
 
-const EditProduct = () => {
+const ProductEdit = () => {
   const { prodID } = useParams();
   const [formObj, setFormObj] = useState({
     title:"",
@@ -15,7 +15,6 @@ const EditProduct = () => {
 
   useEffect(() => {
     setFormObj(null);
-    console.log(`prodID: ${prodID}`);
     const getOneURL = `${apiURL}/${prodID}`;
     axios
       .get(getOneURL)
@@ -96,4 +95,4 @@ const EditProduct = () => {
     )
 }
 
-export default EditProduct
+export default ProductEdit
