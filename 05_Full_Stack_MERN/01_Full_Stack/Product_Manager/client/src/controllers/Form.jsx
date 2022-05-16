@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
-const Form = () => {
+const Form = (props) => {
   // Hold form data
   const [formObj, setFormObj] = useState({
     title:"",
     price:0,
     description:""
   });
+
+  const {flipSwitch} = props;
 
   // URL for API call
   const createURL = 'http://localhost:8000/api/products'
@@ -34,6 +36,7 @@ const Form = () => {
         resetForm();
       })
       .catch(err => console.log(`Ya dun goofed! ${err}`))
+      flipSwitch();
   }
 
   // Reset form data

@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const Display = () => {
-  const [productState, setProductState] = useState(null);
+const Display = (props) => {
+  const [productState, setProductState] = useState([]);
   const [errState, setErrState] = useState("");
+
+  const {runEffect, flipSwitch} = props;
 
   const getAllURL = "http://localhost:8000/api/products";
 
@@ -23,7 +25,14 @@ const Display = () => {
         console.log("Something went hella wrong", uhoh);
         setErrState(uhoh);
       });
-  }, []);
+  }, [runEffect]);
+
+  const deleteHandler = pid => {
+    axios
+      .delete(`${getAllURL}/${pid}`)
+      .catch(wellf___ => console.log("God damnit, private! How'd you screw this up!", wellf___))
+    flipSwitch();
+  }
 
   return (
     <fieldset>
@@ -33,6 +42,8 @@ const Display = () => {
           return (
             <p key={idx}>
               <Link to={`/${product._id}`}>{product.title}</Link>
+              &emsp;
+              <button onClick={(_)=> deleteHandler(product._id)}>Delete</button>
             </p>
           );
         })) ||
