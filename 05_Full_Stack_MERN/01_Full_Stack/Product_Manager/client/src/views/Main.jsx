@@ -7,7 +7,7 @@ const Main = () => {
 
   const flipSwitch = () => {
     console.log(`Run Effect Trigger. Before: ${runEffect}`);
-    runEffect ? setRunEffect(false) : setRunEffect(true);
+    setRunEffect(!runEffect);
   }
 
   return (

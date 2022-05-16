@@ -34,9 +34,9 @@ const Form = (props) => {
       .then(data => {
         console.log({data})
         resetForm();
+        flipSwitch();
       })
       .catch(err => console.log(`Ya dun goofed! ${err}`))
-      flipSwitch();
   }
 
   // Reset form data
