@@ -39,7 +39,7 @@ const ProductDetail = () => {
       {(productObj && (
         <>
           <h1>Title: {productObj.title}</h1>
-          <h1>Price: {productObj.price}</h1>
+          <h1>Price: ${productObj.price}</h1>
           <h1>Description: {productObj.description}</h1>
           <div>
             <p>
