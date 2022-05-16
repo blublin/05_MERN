@@ -21,4 +21,4 @@
 -- `navigate(`\`REDIRECT URL\``)` with backticks
 
 ### Notes
-- Controller response parameter is initial key in axios then
+- 
