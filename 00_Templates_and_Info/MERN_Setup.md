@@ -14,11 +14,16 @@
 1. In project folder: `npx create-react-app client`
 2. `cd client`
 3. `npm i axios react-router-dom`
-4. mkdir src/views, src/components
-5. `import {BrowserRouter as Router, Link, Routes, Route, useParams } from "react-router-dom"` as needed
-6. `import { useNavigate} from "react-router"` as  needed\
--- `const navigate = useNavigate()`\
--- `navigate(`\`REDIRECT URL\``)` with backticks
+4. Make the directories views, components in src/
+5. `import {BrowserRouter as Router, Link, Routes, Route, useParams, useNavigate } from "react-router-dom"` as needed
 
 ### Notes
-- 
+- Routing
+    - `<Router>` wraps `<Routes>`, `<Route>` (and `<Link>` when used inside the main routing page)
+    - `<Link>` is nearly identical to `<a>` tag, but uses `to={''}` instead of `href=`
+- `const navigate = useNavigate()`
+    - `navigate(`\`REDIRECT URL\``)` with backticks
+- `const params = useParams()`
+    - `const { urlVariablesFromRoutes } = params`
+    - Variables defined in routes with `:variable`
+
