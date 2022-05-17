@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import AuthorForm from "../components/AuthorForm";
+import HomeLink from "../components/HomeLink";
 
 const Form = () => {
 
@@ -23,6 +24,7 @@ const Form = () => {
   return (
     <fieldset style={{ textAlign: "center", fontSize: "20px" }}>
       <legend>Form.jsx</legend>
+      <HomeLink />
       <h3 style={{ marin: "10px auto" }}>{pageFunc}</h3>
       <AuthorForm edit={edit}/>
     </fieldset>

@@ -4,7 +4,7 @@ import AuthorTable from '../components/AuthorTable';
 import Header from '../components/Header';
 
 const Main = (props) => {
-  const {runEffect} = props;
+  const {runEffect, flipSwitch} = props;
 
 
   return (
@@ -12,7 +12,7 @@ const Main = (props) => {
         <legend>Main View</legend>
         <Header />
         <AddAuthorLink />
-        <AuthorTable runEffect={runEffect}/>
+        <AuthorTable {...props}/>
     </fieldset>
   )
 }

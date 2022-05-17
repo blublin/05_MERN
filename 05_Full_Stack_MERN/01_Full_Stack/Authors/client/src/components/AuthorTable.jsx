@@ -5,9 +5,6 @@ import { Link } from "react-router-dom";
 const Display = (props) => {
   const [authorState, setAuthorState] = useState([]);
 
-  // Needed? 
-  // const [errState, setErrState] = useState("");
-
   const {runEffect, flipSwitch} = props;
 
   const getAllURL = "http://localhost:8000/api/authors";
