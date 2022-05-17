@@ -4,6 +4,7 @@ import axios from 'axios';
 const Form = (props) => {
   // Hold form data
   const [name, setName] = useState("");
+  const [dbErrors, setDBErrors] = useState({});
 
   const {flipSwitch} = props;
 
@@ -20,7 +21,10 @@ const Form = (props) => {
         setName("");
         flipSwitch();
       })
-      .catch(Hagrid => console.log(`Ya dun goofed! ${Hagrid}`))
+      .catch(scaryBad => {
+        console.log(scaryBad.response.data.errors)
+        setDBErrors(scaryBad.response.data.errors)
+      })
   }
 
 
@@ -43,11 +47,11 @@ const Form = (props) => {
             <input placeholder='Author Name' type="text" name="name" id="name"
             onChange={e => setName(e.target.value)} value={name}
             style={{flex:"2"}}/>
-            {/* {
-              errObj &&
-              errObj.name.messsage
-            } */}
           </div>
+            {
+              dbErrors && dbErrors.name &&
+              <p style={{color:'red', fontSize:"14px"}}>{dbErrors.name.message}</p>
+            }
           <input type="submit" value="Create!" />
         </form>
     </fieldset>
