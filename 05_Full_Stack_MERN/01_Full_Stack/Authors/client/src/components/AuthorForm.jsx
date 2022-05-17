@@ -18,7 +18,6 @@ const AuthorForm = (props) => {
   let submitValue = edit ? "Update" : "Submit";
   const baseAPIURL = "http://localhost:8000/api/authors";
 
-
   useEffect(() => {
     if (edit) {
       console.log("Triggered Author Form useEffect")
@@ -35,7 +34,7 @@ const AuthorForm = (props) => {
           setDBErrors(scaryBad.response.data.errors);
         });
     }
-  });
+  },[]);
 
   const submitHandler = (event) => {
     event.preventDefault();
