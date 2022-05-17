@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const AuthorSchema = new mongoose.Schema(
 	{
-		name: {
+		authorName: {
 			// Required type String
 			type: String,
 			// Optional required field, optional required statement

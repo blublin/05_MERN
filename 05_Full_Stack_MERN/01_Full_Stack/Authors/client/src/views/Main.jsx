@@ -1,20 +1,18 @@
-import React, { useState } from 'react';
-import Display from '../controllers/Display';
-import Form from '../controllers/Form';
+import React from 'react';
+import AddAuthorLink from '../components/AddAuthorLink';
+import AuthorTable from '../components/AuthorTable';
+import Header from '../components/Header';
 
-const Main = () => {
-  const [runEffect, setRunEffect] = useState(false);
+const Main = (props) => {
+  const {runEffect} = props;
 
-  const flipSwitch = () => {
-    console.log(`Run Effect Trigger. Before: ${runEffect}`);
-    setRunEffect(!runEffect);
-  }
 
   return (
     <fieldset>
-        <legend>Main.jsx</legend>
-        <Form flipSwitch={flipSwitch}/>
-        <Display runEffect={runEffect} flipSwitch={flipSwitch}/>
+        <legend>Main View</legend>
+        <Header />
+        <AddAuthorLink />
+        <AuthorTable runEffect={runEffect}/>
     </fieldset>
   )
 }

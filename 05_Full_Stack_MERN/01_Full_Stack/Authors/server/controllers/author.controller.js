@@ -19,9 +19,9 @@ module.exports.createNewAuthor = (req, res) => {
 };
 
 module.exports.updateOne = (req, res) => {
-  Author.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true })
+  Author.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true })
     .then( updatedAuthor => res.json( updatedAuthor ))
-    .catch( err => res.status(400).json( { message: "Something went wrong", err } ));
+    .catch( err => res.status(400).json( err ));
 };
 
 module.exports.deleteAnExistingAuthor = (req, res) => {
