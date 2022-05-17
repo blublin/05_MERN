@@ -4,7 +4,7 @@ import axios from "axios";
 
 const AuthorForm = (props) => {
   const locationStr = useLocation().pathname;
-  console.log(`Current location: ${locationStr}`);
+  // console.log(`Current location: ${locationStr}`);
 
   const [authorName, setName] = useState("");
   const [dbErrors, setDBErrors] = useState({});

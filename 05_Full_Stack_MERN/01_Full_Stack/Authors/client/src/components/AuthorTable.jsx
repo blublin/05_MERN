@@ -18,7 +18,6 @@ const Display = (props) => {
           `Show me the magic data coming back for get all`,
           twoChains.data
         );
-        twoChains.data.sort()
         setAuthorState(twoChains.data);
       })
       .catch((uhoh) => {
