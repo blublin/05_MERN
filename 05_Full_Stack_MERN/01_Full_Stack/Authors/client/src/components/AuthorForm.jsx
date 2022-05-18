@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const AuthorForm = (props) => {
-  const locationStr = useLocation().pathname;
-  // console.log(`Current location: ${locationStr}`);
 
   const [authorName, setName] = useState("");
   const [dbErrors, setDBErrors] = useState({});
@@ -108,9 +106,9 @@ const AuthorForm = (props) => {
           {dbErrors.authorName.message}
         </p>
       )}
-      <button onClick={cancelNew}>Cancel</button>
-      &nbsp;&nbsp;
       <button type="submit">{submitValue}</button>
+      &nbsp;&nbsp;
+      <button onClick={cancelNew}>Cancel</button>
     </form>
   );
 };
