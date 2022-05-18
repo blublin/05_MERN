@@ -1,3 +1,4 @@
+// import mongoose
 const mongoose = require("mongoose");
 
 const UserSchema = new mongoose.Schema(
@@ -12,6 +13,15 @@ const UserSchema = new mongoose.Schema(
 			minlength: [3, "Min length string statement"],
 			// Optional max string length, optional maxlength statement
 			maxlength: [50, "Max length string statement"],
+			// Custom validation to ensure unique value :: Does this work?
+			validate: {
+				validator: function(v, cb) {
+				  User.find({stringKey: v}, function(err,docs){
+					 cb(docs.length === 0);
+				  });
+				},
+				message: 'stringKey already exists!'
+			  },
 			// Optional bool to convert to lowercase
 			lowercase: true,
 			// Optional bool to convert to uppercase

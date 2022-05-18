@@ -1,9 +1,11 @@
+// Import Model
 const User = require("../models/user.model");
 
+// Controller function calls using Mongoose to MongoDB
 module.exports.findAllUsers = (_, res) => {
-  User.find()
+  User.find().sort('first_model_field_Asc -second_model_field_Desc')
     .then( users => res.json( users ))
-    .catch( err => res.status(4001).json( { message: "Something went wrong", err } ));
+    .catch( err => res.status(401).json( { message: "Something went wrong", err } ));
 };
 
 module.exports.findOneSingleUser = (req, res) => {
@@ -13,9 +15,19 @@ module.exports.findOneSingleUser = (req, res) => {
 };
 
 module.exports.createNewUser = (req, res) => {
-  User.create(req.body)
-    .then( newUser => res.json( newUser ))
-    .catch( err => res.status(403).json( { message: "Something went wrong", err } ));
+  // Check if stringKey already exists 
+  // const exists = await User.exists(req.body.stringKey);
+  User.exists(req.body.stringKey)
+  // if (!exists) {
+    // User exists, send err message in .then
+    .then( err => res.status(403).json( { message: "User already exists", err } ))
+    .catch(
+      // User doesn't exist, do .create()
+      User.create(req.body)
+        .then( newUser => res.json( newUser ))
+        .catch( err => res.status(400).json( err ))
+      );
+  // }
 };
 
 module.exports.updateExistingUser = (req, res) => {
