@@ -29,10 +29,15 @@ const AuthorForm = (props) => {
         })
         .catch((scaryBad) => {
           console.log(scaryBad.response.data.errors);
-          setDBErrors(scaryBad.response.data.errors);
+          if (scaryBad.response.data.errors) {
+            setDBErrors(scaryBad.response.data.errors);
+          }
+          else {
+            navigate("/new")
+          }
         });
     }
-  },[]);
+  },[edit]);
 
   const submitHandler = (event) => {
     event.preventDefault();
