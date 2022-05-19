@@ -15,19 +15,17 @@ module.exports.findOneSingleUser = (req, res) => {
 };
 
 module.exports.createNewUser = (req, res) => {
-  // Check if stringKey already exists 
-  // const exists = await User.exists(req.body.stringKey);
-  User.exists(req.body.stringKey)
-  // if (!exists) {
-    // User exists, send err message in .then
-    .then( err => res.status(403).json( { message: "User already exists", err } ))
-    .catch(
-      // User doesn't exist, do .create()
-      User.create(req.body)
-        .then( newUser => res.json( newUser ))
-        .catch( err => res.status(400).json( err ))
-      );
-  // }
+  // User.exists 2nd argument is a callback function accepting an error and a document parameter
+  User.exists( {stringKey:req.body.stringKey},
+    (err, exists) => {
+      // If the document does not exist (null), then not null -> create the user
+      !exists
+        ? User.create(req.body)
+          .then( newUser => res.json( newUser ))
+          .catch( err => res.status(400).json( err ))
+        // If the document does exist (object with _id), then not true -> return error in same form as normal error object
+        : (console.log("Triggered stringKey exists"), res.status(400).json( {errors: {alreadyExists: { message: "User already exists"}}}))
+    })
 };
 
 module.exports.updateExistingUser = (req, res) => {

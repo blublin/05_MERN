@@ -44,10 +44,10 @@ const database = "your_database_name";
 - add `.sort()` to any Mongoose find one, many, all as needed
   - Line 6 Controller: `User.find().sort('first_model_field_Asc -second_model_field_Desc')`
   - Edit field(s) and desired order
-- Validate unique field in Create
+- Edit exists `stringKey` to unique field key
 - Update requires 3rd aguement: `{ new: true, runValidators: true }`
-- find by id first argument: `{ _id: req.params.id }`
 - Grab variable route values with `req.params.variable_name`
+- find by id first argument: `{ _id: req.params.id }`
 
 #### Models
 - Edit model(s): add/remove validation/options
@@ -228,4 +228,26 @@ export default Header
       </tr>
     );
 }))}
+```
+
+- Display error from errObj
+  - set `databaseField` to whatever field/key from the Model the error matches
+```jsx
+{
+  errObj.databaseField &&
+  <p style={{ color: "red", fontSize: "14px" }}>
+    {errObj.databaseField.message}
+  </p>
+}
+```
+
+- Display error on Create for already exists
+  - change `alreadyExists` to whatever key manually set for errObj
+```jsx
+{
+  errObj.alreadyExists &&
+  <p style={{ color: "red", fontSize: "14px" }}>
+  {errObj.alreadyExists.message}
+  </p>
+}
 ```
