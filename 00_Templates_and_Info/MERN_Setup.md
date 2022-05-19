@@ -23,7 +23,7 @@
 - axios to Express Server (port 8000)
 - `const params = useParams()`
     - `const { urlVariablesFromRoutes } = params`
-    - Variables defined in routes with `:variable`
+    - Variables defined in React routes with `:variable`
 
 ## Setup | Code Blocks | Snippets
 
@@ -42,6 +42,8 @@ const database = "your_database_name";
 
 #### Controllers
 - add `.sort()` to any Mongoose find one, many, all as needed
+  - Line 6 Controller: `User.find().sort('first_model_field_Asc -second_model_field_Desc')`
+  - Edit field(s) and desired order
 - Validate unique field in Create
 - Update requires 3rd aguement: `{ new: true, runValidators: true }`
 - find by id first argument: `{ _id: req.params.id }`
