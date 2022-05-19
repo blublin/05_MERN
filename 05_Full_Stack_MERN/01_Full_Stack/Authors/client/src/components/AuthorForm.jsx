@@ -41,7 +41,7 @@ const AuthorForm = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
+    setDBErrors({})
     if (edit){
       // Update
       axios
@@ -106,11 +106,19 @@ const AuthorForm = (props) => {
           style={{ flex: "2" }}
         />
       </div>
-      {dbErrors && dbErrors.authorName && (
+      {
+        dbErrors.authorName &&
         <p style={{ color: "red", fontSize: "14px" }}>
           {dbErrors.authorName.message}
         </p>
-      )}
+      }
+      
+      {
+        dbErrors.alreadyExists &&
+        <p style={{ color: "red", fontSize: "14px" }}>
+        {dbErrors.alreadyExists.message}
+        </p>
+      }
       <button type="submit">{submitValue}</button>
       &nbsp;&nbsp;
       <button onClick={cancelNew}>Cancel</button>
