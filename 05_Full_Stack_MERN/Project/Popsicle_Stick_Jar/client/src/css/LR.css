@@ -93,7 +93,7 @@
 .formBg {
     /* https://developer.mozilla.org/en-US/docs/Web/CSS/gradient/linear-gradient */
     background: repeating-linear-gradient(
-        to right,
+        45deg,
         rgba(26, 69, 69, 0.75) 0%,
         rgba(99, 40, 50, 0.75) 25%,
         rgba(15, 63, 15, 0.75) 75%,

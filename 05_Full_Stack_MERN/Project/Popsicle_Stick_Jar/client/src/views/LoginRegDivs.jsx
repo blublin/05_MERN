@@ -14,7 +14,7 @@ const LoginRegDivs = () => {
     const logRegToggle = (e) => {
         e.preventDefault();
         console.log("Login Register Toggle Activated");
-        logBtnState ? navigate("/register") : navigate("/");
+        logBtnState ? navigate("/register") : navigate("/login");
         setLogBtnState(!logBtnState);
         setRegBtnState(!regBtnState);
     };
