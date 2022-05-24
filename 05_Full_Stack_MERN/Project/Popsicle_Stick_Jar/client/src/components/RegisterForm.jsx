@@ -7,7 +7,7 @@ const RegisterForm = () => {
 
     return (
         <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={e => e.preventDefault()}
             className="aForm p-3 formBg text-light text-center"
         >
             <div className="tabs d-flex justify-content-evenly align-items-center">
@@ -113,15 +113,17 @@ const RegisterForm = () => {
                     placeholder="significant others email"
                 />
             </div>
-            <input
-                type="submit"
-                className="shadow btn border btn-default bg-primary text-light"
-                value="Register"
-            />
-            <input
-                type="reset"
-                className="shadow btn border btn-default bg-primary text-light"
-            />
+            <div className="form-group formElemment d-flex justify-content-around">
+                <input
+                    type="submit"
+                    className="shadow btn border btn-default bg-primary text-light"
+                    value="Register"
+                />
+                <input
+                    type="reset"
+                    className="shadow btn border btn-default bg-primary text-light"
+                />
+            </div>
         </form>
     );
 };
