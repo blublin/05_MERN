@@ -12,10 +12,10 @@ function App() {
                 <Route path="/" element={<LoginReg />}>
                     <Route element={<LoginRegDivs />}>
                         <Route path="register" element={<RegisterForm />} />
-                        <Route index element={<LoginForm />} />
+                        <Route path="login" element={<LoginForm />} />
                     </Route>
+                    <Route index element={<Home />} />
                 </Route>
-                <Route path="/Home" element={<Home />} />
             </Routes>
         </Router>
     );
