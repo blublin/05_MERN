@@ -14,8 +14,8 @@ function App() {
                         <Route path="register" element={<RegisterForm />} />
                         <Route path="login" element={<LoginForm />} />
                     </Route>
-                    <Route index element={<Home />} />
                 </Route>
+                <Route path="/home" element={<Home />} />
             </Routes>
         </Router>
     );
