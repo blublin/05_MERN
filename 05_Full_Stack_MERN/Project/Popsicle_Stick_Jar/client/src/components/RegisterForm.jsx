@@ -1,22 +1,35 @@
 import React from "react";
+import { useOutletContext } from "react-router-dom";
+import "../css/LR.css";
 
 const RegisterForm = () => {
+    const { logRegToggle, logBtnState, regBtnState } = useOutletContext();
+
     return (
         <form
-            action="/register/create"
-            method="POST"
-            className="p-3 formBg text-light text-center m-5"
+            onSubmit={(e) => e.preventDefault()}
+            className="aForm p-3 formBg text-light text-center"
         >
             <div className="tabs d-flex justify-content-evenly align-items-center">
                 <button
                     type="button"
-                    className="btn login text-light not-hidden"
-                    onclick="tab1();"
+                    className={`tabInner btn login text-light ${
+                        logBtnState && "notHidden"
+                    }`}
+                    onClick={logRegToggle}
                 >
                     Login
                 </button>
-                <hr width="1" size="40px" />
-                <button type="button" className="btn signup text-light">
+                <hr
+                    style={{ width: "1px", size: "40px" }}
+                    className="tabInner"
+                />
+                <button
+                    type="button"
+                    className={`tabInner btn signup text-light ${
+                        regBtnState && "notHidden"
+                    }`}
+                >
                     Signup
                 </button>
             </div>
