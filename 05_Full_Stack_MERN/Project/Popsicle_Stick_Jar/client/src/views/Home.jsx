@@ -1,32 +1,22 @@
 import React from 'react'
+import Header from '../components/Header'
+import Navbar from '../components/Navbar'
 
-const Dashboard = () => {
+const Home = () => {
   return (
     <div class="container p-1">
 
-<!-- Nav Bar -->
-<div class="row title-blur my-3">
-    <h1 class="text-center display-2">The Popsicle Jar</h1>
-    <h3 class="text-center display-6">What fun will you pick?</h3>
-</div>
-<div class="col px-5 d-flex justify-content-between align-items-end">
-    <a href="/groups/new" class="btn btn-outline-success">New Group</a>
-    <a href="/users/me" class="btn btn-outline-success">Account</a>
-    <a href="/logout" class="btn btn-outline-danger">Logout</a>
-</div>
-<hr class="mx-5">
-<!-- End Nav Bar -->
+<Header />
 
-<!-- Main Body -->
+<hr class="mx-5"/>
+<Navbar />
+
 <div id="main-content" class="row justify-content-between">
     
-    <!-- Top Row -->
     <div class="row d-flex flex-column">
-        <h2 class="text-center mx-auto">watz hapnin, {{ session['user_name'] }}?</h2>
+        <h2 class="text-center mx-auto">watz hapnin, {false && "User_Name_Here"} ?</h2>
     </div>
-    <!-- End Top Row -->
     
-    <!-- Main Row Content -->
     <div id="main-row" class="row-5">
         <h2 class="pt-3 text-center">New Event</h2>
         <p class="text-center">(Click on a colorful activity header or footer to  get started!)</p>
@@ -70,10 +60,9 @@ const Dashboard = () => {
     </div>
 
 </div>
-<!-- End Main Body -->
 
 </div>
   )
 }
 
-export default Dashboard
+export default Home
