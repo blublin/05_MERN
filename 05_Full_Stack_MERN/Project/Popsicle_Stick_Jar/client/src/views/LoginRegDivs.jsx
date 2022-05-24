@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import Header from "../components/Header";
-import LoginForm from "../components/LoginForm";
 import "../css/LR.css";
 
 const LoginRegDivs = () => {

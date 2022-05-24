@@ -9,20 +9,27 @@ const LoginForm = () => {
         <form
             // action="/login"
             // method="POST"
-            onSubmit={ e => e.preventDefault() }
+            onSubmit={(e) => e.preventDefault()}
             className="aForm p-3 formBg text-light text-center"
         >
             <div className="tabs d-flex justify-content-evenly align-items-center">
                 <button
                     // type="button"
-                    className={`tabInner btn login text-light ${logBtnState && "notHidden"}`}
+                    className={`tabInner btn login text-light ${
+                        logBtnState && "notHidden"
+                    }`}
                 >
                     Login
                 </button>
-                <hr style={{width:"1px", size:"40px"}} className="tabInner"/>
+                <hr
+                    style={{ width: "1px", size: "40px" }}
+                    className="tabInner"
+                />
                 <button
                     // type="button"
-                    className={`tabInner btn signup text-light ${regBtnState && "notHidden"}`}
+                    className={`tabInner btn signup text-light ${
+                        regBtnState && "notHidden"
+                    }`}
                     onClick={logRegToggle}
                 >
                     Signup
