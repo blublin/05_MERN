@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model activities {
+  id         Int       @id @default(autoincrement())
+  name       String?   @db.VarChar(100)
+  created_at DateTime? @default(now()) @db.DateTime(0)
+  updated_at DateTime? @default(now()) @db.DateTime(0)
+  events     events[]
+}
+
+model cities {
+  id       Int      @id @default(autoincrement())
+  city     String   @db.VarChar(100)
+  state    String   @db.VarChar(4)
+  zip_code Int?
+  events   events[]
+  groups   groups[]
+  users    users[]
+}
+
+model events {
+  id               Int                @id @default(autoincrement())
+  name             String?            @db.VarChar(100)
+  when             DateTime?          @db.DateTime(0)
+  city_id          Int
+  twentyOnePlus    Int?               @db.TinyInt
+  description      String?            @db.Text
+  activity_id      Int
+  creator_id       Int
+  created_at       DateTime?          @default(now()) @db.DateTime(0)
+  updated_at       DateTime?          @default(now()) @db.DateTime(0)
+  activities       activities         @relation(fields: [activity_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_activities1")
+  cities           cities             @relation(fields: [city_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_cities1")
+  users            users              @relation(fields: [creator_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_users1")
+  events_has_users events_has_users[]
+
+  @@index([activity_id], map: "fk_events_activities1_idx")
+  @@index([city_id], map: "fk_events_cities1_idx")
+  @@index([creator_id], map: "fk_events_users1_idx")
+}
+
+model events_has_users {
+  event_id Int
+  user_id  Int
+  events   events @relation(fields: [event_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_has_users_events1")
+  users    users  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_events_has_users_users1")
+
+  @@id([event_id, user_id])
+  @@index([event_id], map: "fk_events_has_users_events1_idx")
+  @@index([user_id], map: "fk_events_has_users_users1_idx")
+}
+
+model friends {
+  user_id                        Int
+  friend_id                      Int
+  users_friends_friend_idTousers users @relation("friends_friend_idTousers", fields: [friend_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_has_users_users2")
+  users_friends_user_idTousers   users @relation("friends_user_idTousers", fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_has_users_users1")
+
+  @@id([user_id, friend_id])
+  @@index([user_id], map: "fk_users_has_users_users1_idx")
+  @@index([friend_id], map: "fk_users_has_users_users2_idx")
+}
+
+model group_members {
+  group_id Int
+  user_id  Int
+  groups   groups @relation(fields: [group_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_groups_has_users_groups1")
+  users    users  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_groups_has_users_users1")
+
+  @@id([group_id, user_id])
+  @@index([group_id], map: "fk_groups_has_users_groups1_idx")
+  @@index([user_id], map: "fk_groups_has_users_users1_idx")
+}
+
+model groups {
+  id            Int             @id @default(autoincrement())
+  name          String?         @db.VarChar(100)
+  description   String?         @db.VarChar(255)
+  city_id       Int
+  created_at    DateTime?       @default(now()) @db.DateTime(0)
+  updated_at    DateTime?       @default(now()) @db.DateTime(0)
+  cities        cities          @relation(fields: [city_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_groups_cities1")
+  group_members group_members[]
+
+  @@index([city_id], map: "fk_groups_cities1_idx")
+}
+
+model users {
+  id                                            Int                @id @default(autoincrement())
+  first_name                                    String?            @db.VarChar(45)
+  last_name                                     String?            @db.VarChar(45)
+  email                                         String?            @unique(map: "email_UNIQUE") @db.VarChar(100)
+  birthday                                      DateTime?          @db.Date
+  password                                      String?            @db.VarChar(255)
+  avatar_num                                    Int?               @db.TinyInt
+  city_id                                       Int
+  sig_other_id                                  Int?
+  sig_other_request_id                          Int?
+  created_at                                    DateTime?          @default(now()) @db.DateTime(0)
+  updated_at                                    DateTime?          @default(now()) @db.DateTime(0)
+  cities                                        cities             @relation(fields: [city_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_cities1")
+  users_usersTousers_sig_other_id               users?             @relation("usersTousers_sig_other_id", fields: [sig_other_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_users1")
+  users_usersTousers_sig_other_request_id       users?             @relation("usersTousers_sig_other_request_id", fields: [sig_other_request_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_users_users2")
+  events                                        events[]
+  events_has_users                              events_has_users[]
+  friends_friends_friend_idTousers              friends[]          @relation("friends_friend_idTousers")
+  friends_friends_user_idTousers                friends[]          @relation("friends_user_idTousers")
+  group_members                                 group_members[]
+  other_users_usersTousers_sig_other_id         users[]            @relation("usersTousers_sig_other_id")
+  other_users_usersTousers_sig_other_request_id users[]            @relation("usersTousers_sig_other_request_id")
+
+  @@index([city_id], map: "fk_users_cities1_idx")
+  @@index([sig_other_id], map: "fk_users_users1_idx")
+  @@index([sig_other_request_id], map: "fk_users_users2_idx")
+}
