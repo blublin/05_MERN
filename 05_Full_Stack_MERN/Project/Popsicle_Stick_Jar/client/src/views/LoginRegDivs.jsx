@@ -31,6 +31,8 @@ const LoginRegDivs = () => {
                                     logRegToggle,
                                     logBtnState,
                                     regBtnState,
+                                    setLogBtnState,
+                                    setRegBtnState
                                 }}
                             />
                         </div>

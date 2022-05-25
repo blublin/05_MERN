@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import "../css/LR.css";
 
 const LoginForm = () => {
-    const { logRegToggle, logBtnState, regBtnState } = useOutletContext();
+    const { logRegToggle, logBtnState, regBtnState, setLogBtnState, setRegBtnState } = useOutletContext();
+
+    useEffect( () => {
+        
+    })
 
     return (
         <form

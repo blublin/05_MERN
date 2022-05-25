@@ -3,7 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import "../css/LR.css";
 
 const RegisterForm = () => {
-    const { logRegToggle, logBtnState, regBtnState } = useOutletContext();
+    const { logRegToggle, logBtnState, regBtnState, setLogBtnState, setRegBtnState } = useOutletContext();
 
     return (
         <form

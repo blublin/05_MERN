@@ -4,6 +4,7 @@ import LoginReg from "./views/LoginReg";
 import LoginRegDivs from "./views/LoginRegDivs";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
+import ViewEvent from "./views/ViewEvent";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                     </Route>
                 </Route>
                 <Route path="/home" element={<Home />} />
+                <Route path="/event/:id" element={<ViewEvent />} />
             </Routes>
         </Router>
     );
