@@ -10,13 +10,13 @@ function App() {
     return (
         <Router>
             <Routes>
+                <Route path="/" element={<Home />} />
                 <Route path="/" element={<LoginReg />}>
                     <Route element={<LoginRegDivs />}>
                         <Route path="register" element={<RegisterForm />} />
                         <Route path="login" element={<LoginForm />} />
                     </Route>
                 </Route>
-                <Route path="/home" element={<Home />} />
                 <Route path="/event/:id" element={<ViewEvent />} />
             </Routes>
         </Router>
