@@ -13,11 +13,13 @@ app.use(express.json(), express.urlencoded({ extended: true }), cors());
 
 // 4. ROUTES
 // User Routes
-const AllMyUserRoutes = require("./routes/user.routes");
-AllMyUserRoutes(app);
+require("./routes/user.routes")(app);
+// Group Routes
+require("./routes/group.routes")(app);
+// Event Routes
+require("./routes/event.routes")(app);
 // Activity Routes
-// const AllMyActivityRoutes = require(".routes/activity.routes");
-// AllMyActivityRoutes(app);
+require("./routes/activity.routes")(app);
 
 // 5. RUN EXPRESS SERVER
 app.listen(port, () => console.log(`The server is all fired up on port ${port}`));

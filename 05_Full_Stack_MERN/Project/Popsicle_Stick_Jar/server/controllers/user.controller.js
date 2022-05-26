@@ -26,9 +26,10 @@ module.exports.findOneSingleUser = (req, res) => {
                 console.log(
                     `Birthday: ${oneUser.birthday.toLocaleDateString("sv")}`
                 );
+            // Prisma does birthday in DateTime by default, convert to YYYY-MM-DD
+            // Duplicate oneUser, replace birthday value
             const fixedUser = {
                 ...oneUser,
-                // Prisma does birthday in DateTime by default, convert to YYYY-MM-DD
                 birthday: oneUser.birthday.toLocaleDateString("sv"),
             };
             res.json(fixedUser);
@@ -39,18 +40,112 @@ module.exports.findOneSingleUser = (req, res) => {
         });
 };
 
+module.exports.getAllEventsOfUser = (req, res) => {
+    const id = +req.params.id;
+    DEBUG &&
+        console.log(
+            `Reached controller :: Find Groups of User ${req.params.id}.`
+        );
+    prisma.events_has_users
+        .findMany({
+            // Find some (at least 1) value in group where user_id = parameter
+            where: {
+                user_id: id,
+            },
+            select: {
+                events: {
+                    select: {
+                        name: true,
+                        id: true,
+                    },
+                },
+            },
+        })
+        .then((users) => res.json(users))
+        .catch((err) => {
+            console.log(err);
+            res.status(400).json({ message: "Something went wrong", err });
+        });
+};
+
+module.exports.getAllFriendsOfUser = (req, res) => {
+    const id = +req.params.id;
+    DEBUG &&
+        console.log(
+            `Reached controller :: Find Friends of User ${req.params.id}.`
+        );
+    prisma.friends
+        .findMany({
+            // Find some (at least 1) value in friend where user_id = parameter
+            where: {
+                user_id: id,
+            },
+            // Include user findUnique where idToUsers = params.id and return friend obj
+            select: {
+                users_friends_friend_idTousers: {
+                    select: {
+                        first_name: true,
+                        last_name: true,
+                        id: true,
+                    },
+                },
+            },
+        })
+        .then((users) => res.json(users))
+        .catch((err) => {
+            console.log(err);
+            res.status(400).json({ message: "Something went wrong", err });
+        });
+};
+
+module.exports.getAllGroupsOfUser = (req, res) => {
+    const id = +req.params.id;
+    DEBUG &&
+        console.log(
+            `Reached controller :: Find Groups of User ${req.params.id}.`
+        );
+    prisma.group_members
+        .findMany({
+            // Find some (at least 1) value in group where user_id = parameter
+            where: {
+                user_id: id,
+            },
+            select: {
+                groups: {
+                    select: {
+                        name: true,
+                        id: true,
+                    },
+                },
+            },
+        })
+        .then((users) => res.json(users))
+        .catch((err) => {
+            console.log(err);
+            res.status(400).json({ message: "Something went wrong", err });
+        });
+};
+
 module.exports.createNewUser = (req, res) => {
     DEBUG && console.log(`Reached controller :: Create One User.`);
     prisma.users
         .create({ data: req.body })
-        .then(newUser => res.json(newUser))
-        .catch(err => {
-          // Add validation for unique fields
+        .then((newUser) => res.json(newUser))
+        .catch((err) => {
+            // Add validation for unique fields
             err.code === "P2002"
                 ? err.meta.target === "PRIMARY"
-                    ? res.status(400).json({ error: "Primary Key already exists in database.", err })
-                    : res.status(400).json({ error: "Email already exists in database.", err })
-                : res.status(400).json({ message: "Something went wrong", err });
+                    ? res.status(400).json({
+                          error: "Primary Key already exists in database.",
+                          err,
+                      })
+                    : res.status(400).json({
+                          error: "Email already exists in database.",
+                          err,
+                      })
+                : res
+                      .status(400)
+                      .json({ message: "Something went wrong", err });
             console.log(err);
         });
 };
