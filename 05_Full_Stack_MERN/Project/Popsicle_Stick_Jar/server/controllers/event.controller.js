@@ -63,6 +63,13 @@ module.exports.getEventInfo = (req, res) => {
                     select: {
                         name: true
                     }
+                },
+                users: {
+                    select: {
+                        first_name: true,
+                        last_name: true,
+                        id: true
+                    }
                 }
             },
         })

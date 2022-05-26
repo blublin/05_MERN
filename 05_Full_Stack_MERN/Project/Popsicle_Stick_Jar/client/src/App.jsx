@@ -17,7 +17,7 @@ function App() {
                         <Route path="login" element={<LoginForm />} />
                     </Route>
                 </Route>
-                <Route path="/event/:id" element={<ViewEvent />} />
+                <Route path="/event/:e_id" element={<ViewEvent />} />
             </Routes>
         </Router>
     );
