@@ -14,14 +14,16 @@ require("dotenv").config();
 app.use(express.json(), express.urlencoded({ extended: true }), cors({origin: "http://localhost:3000", credentials: true}), cookieParser());
 
 // 4. ROUTES
-// User Routes
-require("./routes/user.routes")(app);
-// Group Routes
-require("./routes/group.routes")(app);
-// Event Routes
-require("./routes/event.routes")(app);
 // Activity Routes
 require("./routes/activity.routes")(app);
+// Event Routes
+require("./routes/event.routes")(app);
+// Group Routes
+require("./routes/group.routes")(app);
+// User Routes
+require("./routes/user.routes")(app);
+// Yelp Routes
+require("./routes/yelp.routes")(app);
 
 // 5. RUN EXPRESS SERVER
 app.listen(port, () => console.log(`The server is all fired up on port ${port}`));

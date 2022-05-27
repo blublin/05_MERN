@@ -41,7 +41,7 @@ const RegisterForm = () => {
             .post("http://localhost:8000/api/users", submitData, {withCredentials: true})
             .then( newUser => {
                 console.log(newUser.data)
-                navigate("/");
+                navigate("/dashboard");
             })
             .catch( err => console.log(err))
     }

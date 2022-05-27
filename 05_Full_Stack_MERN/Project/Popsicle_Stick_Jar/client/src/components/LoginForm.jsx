@@ -32,7 +32,7 @@ const LoginForm = () => {
             )
             .then((good) => {
                 console.log(good);
-                navigate("/");
+                navigate("/dashboard");
             })
             .catch((err) => {
                 console.log(err);
