@@ -6,8 +6,8 @@ import "../css/LR.css";
 const LoginRegDivs = () => {
     const navigate = useNavigate();
 
-    const [logBtnState, setLogBtnState] = useState(true);
-    const [regBtnState, setRegBtnState] = useState(false);
+    const [logBtnState, setLogBtnState] = useState("");
+    const [regBtnState, setRegBtnState] = useState("");
 
     // const props = { logBtnState, setLogBtnState, regBtnState, setRegBtnState};
 
@@ -15,8 +15,6 @@ const LoginRegDivs = () => {
         e.preventDefault();
         console.log("Login Register Toggle Activated");
         logBtnState ? navigate("/register") : navigate("/login");
-        setLogBtnState(!logBtnState);
-        setRegBtnState(!regBtnState);
     };
 
     return (
