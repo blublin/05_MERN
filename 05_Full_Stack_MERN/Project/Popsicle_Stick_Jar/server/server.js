@@ -7,9 +7,10 @@ const port = 8000
 // 2. MONGOOSE CONFIG
 // This will fire our mongoose.connect statement to initialize our database connection
 require("./config/mongoose.config");
+require("dotenv").config();
 
 // 3. CONFIGURE EXPRESS
-app.use(express.json(), express.urlencoded({ extended: true }), cors());
+app.use(express.json(), express.urlencoded({ extended: true }), cors({origin: "http://localhost:3000", credentials: true}));
 
 // 4. ROUTES
 // User Routes
