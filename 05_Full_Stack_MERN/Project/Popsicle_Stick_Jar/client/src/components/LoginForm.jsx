@@ -1,19 +1,49 @@
-import React, { useEffect } from "react";
-import { useOutletContext } from "react-router-dom";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import "../css/LR.css";
 
 const LoginForm = () => {
-    const { logRegToggle, logBtnState, regBtnState, setLogBtnState, setRegBtnState } = useOutletContext();
+    const {
+        logRegToggle,
+        logBtnState,
+        regBtnState,
+        setLogBtnState,
+        setRegBtnState,
+    } = useOutletContext();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    useEffect( () => {
-        
-    })
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        setLogBtnState(true);
+        setRegBtnState(false);
+    });
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+
+        axios
+            .post(
+                "http://localhost:8000/api/users/login",
+                { email, password },
+                { withCredentials: true }
+            )
+            .then((good) => {
+                console.log(good);
+                navigate("/");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     return (
         <form
             // action="/login"
             // method="POST"
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={submitHandler}
             className="aForm p-3 formBg text-light text-center"
         >
             <div className="tabs d-flex justify-content-evenly align-items-center">
@@ -46,6 +76,8 @@ const LoginForm = () => {
                     className="form-control m-auto inputFocus"
                     id="email"
                     name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="email"
                 />
             </div>
@@ -55,6 +87,8 @@ const LoginForm = () => {
                     className="form-control m-auto inputFocus"
                     id="password"
                     name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="password"
                 />
             </div>
