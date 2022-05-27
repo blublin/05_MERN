@@ -1,6 +1,21 @@
+import axios from "axios";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+    const navigate = useNavigate()
+
+    const logout = (event) => {
+        axios
+            .get("http://localhost:8000/api/logout", {withCredentials: true})
+            .then(
+                navigate("/login")
+            )
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     return (
         <div className="col px-5 d-flex justify-content-between align-items-end">
             <a href="/groups/new" className="btn btn-outline-success">
@@ -9,9 +24,9 @@ const Navbar = () => {
             <a href="/users/me" className="btn btn-outline-success">
                 Account
             </a>
-            <a href="/logout" className="btn btn-outline-danger">
+            <button className="btn btn-outline-danger" onClick={logout}>
                 Logout
-            </a>
+            </button>
         </div>
     );
 };
