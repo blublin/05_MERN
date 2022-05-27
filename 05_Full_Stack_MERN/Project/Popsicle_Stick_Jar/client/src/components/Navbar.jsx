@@ -6,6 +6,7 @@ const Navbar = () => {
     const navigate = useNavigate()
 
     const logout = (event) => {
+        event.preventDefault()
         axios
             .get("http://localhost:8000/api/logout", {withCredentials: true})
             .then(

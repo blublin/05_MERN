@@ -42,7 +42,9 @@ const ViewEvent = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8000/api/events/${e_id}`)
+            .get(`http://localhost:8000/api/events/${e_id}`, {
+                withCredentials: true,
+            })
             .then((eventInfo) => {
                 DEBUG && console.log(eventInfo.data[0]);
                 // convert string formatted date to Date with options

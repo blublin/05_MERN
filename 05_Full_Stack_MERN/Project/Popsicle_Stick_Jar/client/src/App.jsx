@@ -5,6 +5,7 @@ import LoginRegDivs from "./views/LoginRegDivs";
 import RegisterForm from "./components/RegisterForm";
 import LoginForm from "./components/LoginForm";
 import ViewEvent from "./views/ViewEvent";
+import User from "./views/User";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     </Route>
                 </Route>
                 <Route path="/event/:e_id" element={<ViewEvent />} />
+                <Route path="/user/:u_id" element={<User />} />
             </Routes>
         </Router>
     );
