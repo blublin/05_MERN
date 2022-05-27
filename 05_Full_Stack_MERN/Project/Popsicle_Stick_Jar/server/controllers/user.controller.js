@@ -1,9 +1,123 @@
 // Import Model
 const { PrismaClient, Prisma } = require("@prisma/client");
 const prisma = new PrismaClient();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const DEBUG = true;
 
+// LOGIN
+module.exports.loginUser = (req, res) => {
+    DEBUG && console.log ("Login Triggered. Req.body:", req.body)
+    const { email, password } = req.body;
+    // Confirm user exists
+    prisma.users
+        .findFirst({
+            where: { email },
+        })
+        .then((user) => {
+            DEBUG && console.log("No email query errors.");
+            DEBUG && console.log("User:", user)
+            if (!user) {
+                res.status(400).json({ message: "Invalid Login" });
+            }
+            // If user exists, validate hashed password
+            bcrypt.compare(password, user.password).then((pwIsValid) => {
+                if (pwIsValid) {
+                    // If valid password, create new signed token
+                    const newJWT = jwt.sign(
+                        {
+                            id: user.id,
+                        },
+                        process.env.JWT_KEY
+                    );
+                    // Include json web token inside the cookie response
+                    res.cookie("freshPopsicle", newJWT, {
+                        httpOnly: true,
+                    }).json({ message: "Successfully Logged In", user });
+                } else {
+                    res.status(400).json({ message: "Invalid Login" });
+                }
+            });
+        });
+};
+
+// REGISTER USER
+module.exports.registerUser = (req, res) => {
+    DEBUG && console.log(`Reached controller :: Create One User.`);
+    DEBUG && console.log(req.body);
+    const { zip_code, password, password_confirm } = req.body;
+    // Find matching City from Zip Code, get city ID
+    prisma.cities
+        .findFirst({
+            where: {
+                zip_code: +zip_code,
+            },
+            select: {
+                id: true,
+            },
+        })
+        .then((city_id) => {
+            DEBUG &&
+                console.log({ message: "Found city by zip code:", city_id });
+
+            if (password !== password_confirm) {
+                res.status(400).json({ message: "Passwords must match." });
+            }
+
+            // Create salt and hash password
+            // const salt = bcrypt.genSalt(10);
+            const hashedPW = bcrypt.hashSync(password, 10);
+            DEBUG && console.log("Hashed PW:", hashedPW);
+
+            const data = {
+                ...req.body,
+                city_id: city_id.id,
+                password: hashedPW,
+            };
+            delete data.zip_code;
+            delete data.password_confirm;
+
+            prisma.users
+                .create({ data })
+                .then((newUser) => {
+                    // Successfully made user, return with new signed token
+                    const newJWT = jwt.sign(
+                        {
+                            id: newUser.id,
+                        },
+                        process.env.JWT_KEY
+                    );
+                    // Include json web token inside the cookie response
+                    res.cookie("freshPopsicle", newJWT, {
+                        httpOnly: true,
+                    }).json({
+                        message: "Successfully Registered and Logged In",
+                        newUser,
+                    });
+                })
+                .catch((err) => {
+                    // Add validation for unique fields
+                    err.code === "P2002"
+                        ? err.meta.target === "PRIMARY"
+                            ? res.status(400).json({
+                                  error: "Primary Key already exists in database.",
+                                  err,
+                              })
+                            : res.status(400).json({
+                                  error: "Email already exists in database.",
+                                  err,
+                              })
+                        : res
+                              .status(400)
+                              .json({ message: "Non-P2002 Error", err });
+                    console.log(err);
+                });
+        })
+        .catch((err) => console.log({ message: "No matching zip code!", err }));
+};
+
+// GET ALL USERS
 module.exports.findAllUsers = (_, res) => {
     DEBUG && console.log("Reached controller :: Find All Users.");
     prisma.users
@@ -40,6 +154,7 @@ module.exports.findOneSingleUser = (req, res) => {
         });
 };
 
+// GET ALL EVENTS OF USER
 module.exports.getAllEventsOfUser = (req, res) => {
     const id = +req.params.id;
     DEBUG &&
@@ -68,6 +183,7 @@ module.exports.getAllEventsOfUser = (req, res) => {
         });
 };
 
+// GET ALL FRIENDS OF USER
 module.exports.getAllFriendsOfUser = (req, res) => {
     const id = +req.params.id;
     DEBUG &&
@@ -98,6 +214,7 @@ module.exports.getAllFriendsOfUser = (req, res) => {
         });
 };
 
+// GET ALL GROUPS OF USER
 module.exports.getAllGroupsOfUser = (req, res) => {
     const id = +req.params.id;
     DEBUG &&
@@ -126,30 +243,7 @@ module.exports.getAllGroupsOfUser = (req, res) => {
         });
 };
 
-module.exports.createNewUser = (req, res) => {
-    DEBUG && console.log(`Reached controller :: Create One User.`);
-    prisma.users
-        .create({ data: req.body })
-        .then((newUser) => res.json(newUser))
-        .catch((err) => {
-            // Add validation for unique fields
-            err.code === "P2002"
-                ? err.meta.target === "PRIMARY"
-                    ? res.status(400).json({
-                          error: "Primary Key already exists in database.",
-                          err,
-                      })
-                    : res.status(400).json({
-                          error: "Email already exists in database.",
-                          err,
-                      })
-                : res
-                      .status(400)
-                      .json({ message: "Something went wrong", err });
-            console.log(err);
-        });
-};
-
+// UPDATE USER
 module.exports.updateExistingUser = (req, res) => {
     DEBUG &&
         console.log(
@@ -166,6 +260,7 @@ module.exports.updateExistingUser = (req, res) => {
         );
 };
 
+// DELETE USER
 module.exports.deleteAnExistingUser = (req, res) => {
     DEBUG &&
         console.log(
@@ -181,6 +276,10 @@ module.exports.deleteAnExistingUser = (req, res) => {
         .catch((err) =>
             res.status(400).json({ message: "Something went wrong", err })
         );
+};
+
+module.exports.logout = (_, res) => {
+    res.status(200).clearCookie("freshPopsicle").json("Successful logout");
 };
 
 /*
