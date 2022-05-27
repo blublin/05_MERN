@@ -1,21 +1,29 @@
 // Import controller
 const UserController = require("../controllers/user.controller");
+const {authenticate} = require("../config/jwt.config")
 
 module.exports = (app) => {
+    // LOGOUT
+    app.get("/api/logout", UserController.logout);
+    // REGISTER
+    app.post("/api/users", UserController.registerUser);
+    // LOGIN
+    app.post("/api/users/login", UserController.loginUser);
+
+    /*  ------- PROTECTED ROUTES ------- */
+
     // READ ALL
-    app.get(    "/api/users", UserController.findAllUsers);
-    // CREATE
-    app.post(   "/api/users", UserController.createNewUser);
+    app.get("/api/users", authenticate, UserController.findAllUsers);
     // READ ONE
-    app.get(    "/api/users/:id", UserController.findOneSingleUser);
+    app.get("/api/users/:id", authenticate, UserController.findOneSingleUser);
     // UPDATE ONE
-    app.put(    "/api/users/:id", UserController.updateExistingUser);
+    app.put("/api/users/:id", authenticate, UserController.updateExistingUser);
     // DELETE ONE
-    app.delete( "/api/users/:id", UserController.deleteAnExistingUser);
+    app.delete("/api/users/:id", authenticate, UserController.deleteAnExistingUser);
     // GET ONE WITH EVENTS
-    app.get(    "/api/users/events/:id", UserController.getAllEventsOfUser);
+    app.get("/api/users/events/:id", authenticate, UserController.getAllEventsOfUser);
     // GET ONE WITH FRIENDS
-    app.get(    "/api/users/friends/:id", UserController.getAllFriendsOfUser);
+    app.get("/api/users/friends/:id", authenticate, UserController.getAllFriendsOfUser);
     // GET ONE WITH GROUPS
-    app.get(    "/api/users/groups/:id", UserController.getAllGroupsOfUser);
+    app.get("/api/users/groups/:id", authenticate, UserController.getAllGroupsOfUser);
 };
