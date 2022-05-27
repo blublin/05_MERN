@@ -1,6 +1,7 @@
 // 1. IMPORTS
 const express = require("express");  // Backend
 const cors = require('cors') // Handles security  issue
+const cookieParser = require("cookie-parser")
 const app = express();
 const port = 8000
 
@@ -10,7 +11,7 @@ require("./config/mongoose.config");
 require("dotenv").config();
 
 // 3. CONFIGURE EXPRESS
-app.use(express.json(), express.urlencoded({ extended: true }), cors({origin: "http://localhost:3000", credentials: true}));
+app.use(express.json(), express.urlencoded({ extended: true }), cors({origin: "http://localhost:3000", credentials: true}), cookieParser());
 
 // 4. ROUTES
 // User Routes

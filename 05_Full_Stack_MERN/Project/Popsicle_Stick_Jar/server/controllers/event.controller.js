@@ -2,7 +2,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-const DEBUG = true;
+const DEBUG = false;
 
 module.exports.getAllEvents = (_, res) => {
     DEBUG && console.log("Reached controller :: Get All Events.");

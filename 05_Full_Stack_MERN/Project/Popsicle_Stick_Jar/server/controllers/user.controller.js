@@ -1,5 +1,5 @@
 // Import Model
-const { PrismaClient, Prisma } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -128,6 +128,7 @@ module.exports.findAllUsers = (_, res) => {
         );
 };
 
+// FIND ONE
 module.exports.findOneSingleUser = (req, res) => {
     DEBUG &&
         console.log(
