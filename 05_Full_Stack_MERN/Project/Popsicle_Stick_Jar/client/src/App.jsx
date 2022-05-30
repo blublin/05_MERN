@@ -41,6 +41,7 @@ function App() {
                     <Route index element={<HomeTable1 />} />
                 </Route>
                 <Route path="event/:e_id" element={<ViewEvent />} />
+                {/* <Route path="event/:g_id" element={<ViewGroup />} /> */}
                 <Route path="user/:u_id" element={<User />} />
             </Routes>
         </Router>

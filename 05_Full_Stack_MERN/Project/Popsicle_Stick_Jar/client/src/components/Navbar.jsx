@@ -10,7 +10,7 @@ const Navbar = () => {
         axios
             .get("http://localhost:8000/api/logout", {withCredentials: true})
             .then(
-                navigate("/login")
+                navigate("/")
             )
             .catch(err => {
                 console.log(err)

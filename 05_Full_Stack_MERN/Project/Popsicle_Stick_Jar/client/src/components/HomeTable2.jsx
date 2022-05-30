@@ -1,30 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Select from "react-select";
+import axios from "axios";
 
 const HomeTable2 = (props) => {
     const { cats } = props;
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [selectedCat, setSelectedCat] = useState(null);
+    const [inputOptions, setInputOptions] = useState("");
+    const [location, setLocation] = useState();
     const { relation, r_type } = useParams();
     // const [menuOptions, setMenuOptions] = useState([]);
 
-    // useEffect(() => {
-    //     console.log("Cats on HomeTable2:", cats);
-    //     if (cats) {
-    //         cats.forEach((cat) => {
-    //             const { alias, title } = cat;
-    //             setMenuOptions({
-    //                 ...menuOptions,
-    //                 label: title,
-    //                 value: alias,
-    //             });
-    //         });
-    //     }
-    // }, [props]);
-
-    const handleChange = (event) => {
-        console.log(`Option selected:`, event)
-        // setSelectedOption()
+    const searchHandler = (event) => {
+        event.preventDefault();
+        let terms = `${relation}`;
+        inputOptions.split(",").forEach((word) => {
+            word.trim();
+            terms += ` ${word}`;
+        });
+        let data = {
+            term: terms,
+            location,
+            sort_by: "relevance",
+            limit: 50,
+        };
+        if (selectedCat) data.categories = selectedCat;
+        
+        axios
+            .post("http://localhost:8000/api/yelp/ideas", data)
+            .then(ideas => console.log("Successful idea find", ideas))
+            .catch(err => console.log("Failed find", err));
     };
 
     return (
@@ -45,14 +50,38 @@ const HomeTable2 = (props) => {
                         Currently Selected: {r_type} {relation}
                     </strong>
                 </button>
+                <div className="form-group formElement my-4">
+                    <h3 className="text-light mb-2" for="loc">
+                        Enter zipcode of area for activity
+                    </h3>
+                    <input
+                        className="form-control m-auto inputFocus"
+                        id="loc"
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                    />
+                </div>
+                <div className="form-group formElement my-4">
+                    <h3 className="text-light mb-2" for="iOpt">
+                        Enter general ideas as a comma, separated list
+                    </h3>
+                    <p className="text-danger">rock climbing, indoors</p>
+                    <input
+                        className="form-control m-auto inputFocus"
+                        id="iOpt"
+                        type="text"
+                        value={inputOptions}
+                        onChange={(e) => setInputOptions(e.target.value)}
+                    />
+                </div>
                 {/* <div>{menuOptions && <Select options={menuOptions} />}</div> */}
                 <div className="mt-3 text-info">
                     {cats && (
                         <Select
-                            
-                            value={selectedOption}
+                            value={selectedCat}
                             placeholder="Optional: Choose a category"
-                            onChange={handleChange}
+                            onChange={option => setSelectedCat(option.value)}
                             options={props.cats.map((cat, index) => {
                                 return {
                                     label: cat.title,
@@ -62,6 +91,14 @@ const HomeTable2 = (props) => {
                             })}
                         />
                     )}
+                </div>
+                <div>
+                    <input
+                        type="submit"
+                        className="shadow btn border btn-default bg-success text-light"
+                        value="Search"
+                        onClick={searchHandler}
+                    />
                 </div>
             </div>
         </>

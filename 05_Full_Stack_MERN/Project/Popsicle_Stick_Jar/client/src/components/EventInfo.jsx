@@ -47,7 +47,7 @@ const EventInfo = (props) => {
                                 <tr>
                                     <td></td>
                                     <td>
-                                        <Link to={`/users/${id}`}>
+                                        <Link to={`/user/${id}`}>
                                             {first_name} {last_name}
                                         </Link>
                                     </td>
