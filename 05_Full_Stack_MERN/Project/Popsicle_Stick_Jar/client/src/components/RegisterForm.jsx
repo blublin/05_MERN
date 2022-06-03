@@ -46,6 +46,17 @@ const RegisterForm = () => {
             .catch( err => console.log(err))
     }
 
+    const resetForm = (event) => {
+        event.preventDefault();
+        const resetObj = {}
+        for (let key in regObj) {
+            key !== "avatar_num"
+                ? resetObj.key = ""
+                : resetObj.key = 0
+        }
+        setRegObj(resetObj)
+    }
+
     return (
         <form
             onSubmit={submitHandler}
@@ -177,6 +188,7 @@ const RegisterForm = () => {
                 <input
                     type="reset"
                     className="shadow btn border btn-default bg-primary text-light"
+                    onClick={ resetForm }
                 />
             </div>
         </form>

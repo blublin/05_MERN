@@ -28,7 +28,7 @@ const HomeTable2 = (props) => {
         
         axios
             .post("http://localhost:8000/api/yelp/ideas", data)
-            .then(ideas => console.log("Successful idea find", ideas))
+            .then(ideas => console.log("Successful idea find", ideas.data))
             .catch(err => console.log("Failed find", err));
     };
 

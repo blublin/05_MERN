@@ -31,7 +31,7 @@ module.exports.getIdeas = (req, res) => {
     const config = {
         headers: {
             Authorization: `Bearer ${process.env.YELP_BEARER_TOKEN}`,
-        }
+        },
     };
 
     /* ===== Concatenated URL string from domain + params ===== */
@@ -45,13 +45,12 @@ module.exports.getIdeas = (req, res) => {
     // DEBUG && console.log("Yelp URL:", yelpURL)
 
     DEBUG && console.log("Config:", config)
-    DEBUG && console.log("Yelp URL: " +
-                `https://api.yelp.com/v3/businesses/search` +
-                `${params ? "?" : ""}` |
-                `${params.term ? `term=${params.term}&`: ""}` +
-                `${params.location ? `location=${params.location}&`: ""}` |
-                `${params.categories ? `categories=${params.categories}&`: ""}` +
-                `${params.limit ? `limit=${params.limit}`: ""}`)
+    DEBUG && console.log("Yelp URL :::: " +
+    `https://api.yelp.com/v3/businesses/search` +
+    `${params ? "?" : ""}` +
+    // `${params.term ? `term=${params.term}&`: ""}` +
+    `${params.location ? `location=${params.location}&`: ""}`)
+    
     axios
     // Multiline template literal to pass all possible arguments in.
     .get(
@@ -64,9 +63,9 @@ module.exports.getIdeas = (req, res) => {
         config)
         // .get(yelpURL, config)
         .then((data) => {
-            DEBUG && console.log(data.data)
-            DEBUG && console.log("Yelp Ideas Returns:", data.data.total);
-            res.json(data);
+            DEBUG && console.log("Yelp API Data returned: ", data.data)
+            DEBUG && console.log("Yelp Ideas Returns:" + data.data.total);
+            res.json(data.data);
         })
         .catch((err) =>
             res.status(400).json({ message: "Something went wrong", err })

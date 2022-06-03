@@ -18,7 +18,7 @@ module.exports.loginUser = (req, res) => {
         .then((user) => {
             DEBUG && console.log("No email query errors.");
             DEBUG && console.log("User:", user)
-            if (!user) {
+            if (user === null) {
                 res.status(400).json({ message: "Invalid Login" });
             }
             // If user exists, validate hashed password
