@@ -81,6 +81,7 @@ const HomeTable2 = (props) => {
                         <Select
                             value={selectedCat}
                             placeholder="Optional: Choose a category"
+                            // style={{backgroundColor:"white"}}
                             onChange={option => setSelectedCat(option.value)}
                             options={props.cats.map((cat, index) => {
                                 return {
